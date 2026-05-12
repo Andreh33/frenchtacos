@@ -16,20 +16,15 @@ export default async function OG() {
           flexDirection: "column",
           justifyContent: "space-between",
           background:
-            "radial-gradient(circle at 80% 40%, rgba(255,214,10,0.18), transparent 55%), linear-gradient(135deg, #2A0F3D 0%, #3A1A5C 60%, #2A0F3D 100%)",
+            "radial-gradient(circle at 80% 30%, rgba(168,85,247,0.28), transparent 55%), linear-gradient(135deg, #0A0612 0%, #2A0F3D 60%, #0A0612 100%)",
           color: "#FFF8E7",
           padding: "72px 80px",
           fontFamily: "system-ui",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <div
-            style={{
-              width: 14,
-              height: 14,
-              borderRadius: 999,
-              background: "#FFD60A",
-            }}
+            style={{ width: 12, height: 12, borderRadius: 999, background: "#FFD60A" }}
           />
           <div
             style={{
@@ -40,32 +35,25 @@ export default async function OG() {
               color: "#FFD60A",
             }}
           >
-            Urban French Takos · Nº01 Valdepeñas
+            Valdepeñas · Nº01 · Desde 2024
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", lineHeight: 0.92 }}>
-          <div
-            style={{
-              fontSize: 160,
-              fontWeight: 900,
-              letterSpacing: -4,
-              color: "#FFF8E7",
-            }}
-          >
+        <div style={{ display: "flex", flexDirection: "column", lineHeight: 0.88 }}>
+          <div style={{ fontSize: 168, fontWeight: 900, letterSpacing: -6, color: "#FFF8E7" }}>
             FRENCH
           </div>
-          <div
-            style={{
-              fontSize: 160,
-              fontWeight: 900,
-              letterSpacing: -4,
-              color: "#FFD60A",
-            }}
-          >
+          <div style={{ fontSize: 168, fontWeight: 900, letterSpacing: -6, color: "#FFD60A" }}>
             TAKOS.
           </div>
-          <div style={{ marginTop: 24, fontSize: 28, color: "rgba(255,248,231,0.85)" }}>
+          <div
+            style={{
+              marginTop: 28,
+              fontSize: 28,
+              color: "rgba(255,248,231,0.85)",
+              maxWidth: 760,
+            }}
+          >
             Street food francés con alma manchega.
           </div>
         </div>
@@ -82,7 +70,7 @@ export default async function OG() {
           }}
         >
           <span>urbanfrenchtakos.com</span>
-          <span style={{ color: "#FFD60A" }}>· Pide ya →</span>
+          <span style={{ color: "#FFD60A" }}>Pide ya →</span>
         </div>
       </div>
     ),

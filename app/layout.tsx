@@ -1,33 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { clash, general, mono, italic } from "./fonts";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Loader } from "@/components/system/Loader";
 import { SmoothScroll } from "@/components/system/SmoothScroll";
 import { Cursor } from "@/components/system/Cursor";
-import { Loader } from "@/components/system/Loader";
 import { RestaurantJsonLd } from "@/components/system/RestaurantJsonLd";
-
-const display = Bricolage_Grotesque({
-  variable: "--font-display",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "600", "700", "800"],
-});
-
-const sans = Plus_Jakarta_Sans({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const mono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "700"],
-});
 
 const siteUrl = "https://urbanfrenchtakos.com";
 
@@ -38,17 +15,8 @@ export const metadata: Metadata = {
     template: "%s · Urban French Takos",
   },
   description:
-    "French takos recién sacados de la calle. Pide online, encuéntranos en Calle de la Virgen 60, Valdepeñas.",
+    "French takos recién sacados de la calle. Pide online en Calle de la Virgen 60, Valdepeñas.",
   applicationName: "Urban French Takos",
-  authors: [{ name: "Urban French Takos" }],
-  keywords: [
-    "french tako",
-    "french tacos",
-    "Valdepeñas",
-    "street food",
-    "comida a domicilio",
-    "Urban French Takos",
-  ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -62,15 +30,14 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Urban French Takos",
-    description:
-      "French takos recién sacados de la calle. Valdepeñas, desde el corazón.",
+    description: "French takos recién sacados de la calle.",
   },
   manifest: "/manifest.webmanifest",
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#2A0F3D",
+  themeColor: "#0A0612",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
@@ -84,23 +51,21 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
+      className={`${clash.variable} ${general.variable} ${mono.variable} ${italic.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col grain bg-[var(--uft-purple-deep)] text-[var(--uft-cream)]">
+      <body className="min-h-full flex flex-col grain">
         <a
-          href="#contenido"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:bg-[var(--uft-yellow)] focus:text-[var(--uft-purple-deep)] focus:px-4 focus:py-2 focus:font-mono focus:text-sm"
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:bg-[var(--yellow)] focus:text-[var(--ink)] focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:tracking-widest"
         >
           Saltar al contenido
         </a>
         <Loader />
         <SmoothScroll />
         <Cursor />
-        <Header />
-        <main id="contenido" className="flex-1">
+        <main id="main" className="flex-1">
           {children}
         </main>
-        <Footer />
         <RestaurantJsonLd />
       </body>
     </html>

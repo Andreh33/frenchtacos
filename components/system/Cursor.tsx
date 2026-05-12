@@ -7,14 +7,15 @@ export function Cursor() {
   const ringRef = useRef<HTMLDivElement>(null);
   const [label, setLabel] = useState<string | null>(null);
   const [active, setActive] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const isTouch =
-      window.matchMedia("(hover: none), (pointer: coarse)").matches;
-    if (isTouch) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isTouch || reduce) return;
 
+    setMounted(true);
     document.documentElement.classList.add("cursor-active");
 
     let mx = window.innerWidth / 2;
@@ -35,7 +36,7 @@ export function Cursor() {
       rx += (mx - rx) * 0.18;
       ry += (my - ry) * 0.18;
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${rx - 20}px, ${ry - 20}px, 0)`;
+        ringRef.current.style.transform = `translate3d(${rx - 28}px, ${ry - 28}px, 0)`;
       }
       raf = requestAnimationFrame(tick);
     };
@@ -43,32 +44,43 @@ export function Cursor() {
 
     const onOver = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
-      const c = t.closest<HTMLElement>("[data-cursor]");
-      if (c) {
+      const tagged = t.closest<HTMLElement>("[data-cursor]");
+      if (tagged) {
         setActive(true);
-        setLabel(c.dataset.cursor || null);
+        setLabel(tagged.dataset.cursor || null);
+        return;
+      }
+      const interactive = t.closest(
+        "a, button, [role='button'], input, textarea, select, label"
+      );
+      if (interactive) {
+        setActive(true);
+        setLabel(null);
       } else {
-        const interactive = t.closest("a, button, [role='button'], input, textarea, select");
-        if (interactive) {
-          setActive(true);
-          setLabel(null);
-        } else {
-          setActive(false);
-          setLabel(null);
-        }
+        setActive(false);
+        setLabel(null);
       }
     };
 
-    document.addEventListener("mousemove", onMove);
+    const onLeave = () => {
+      setActive(false);
+      setLabel(null);
+    };
+
+    document.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("mouseover", onOver);
+    document.addEventListener("mouseleave", onLeave);
 
     return () => {
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseover", onOver);
+      document.removeEventListener("mouseleave", onLeave);
       cancelAnimationFrame(raf);
       document.documentElement.classList.remove("cursor-active");
     };
   }, []);
+
+  if (!mounted) return null;
 
   return (
     <>
@@ -78,7 +90,7 @@ export function Cursor() {
         className="pointer-events-none fixed top-0 left-0 z-[9998] hidden md:block"
         style={{ willChange: "transform" }}
       >
-        <div className="h-2 w-2 rounded-full bg-[var(--uft-yellow)]" />
+        <div className="h-2 w-2 rounded-full bg-[var(--yellow)]" />
       </div>
       <div
         ref={ringRef}
@@ -87,14 +99,14 @@ export function Cursor() {
         style={{ willChange: "transform" }}
       >
         <div
-          className={`relative grid place-items-center rounded-full border transition-[width,height,background,color] duration-200 ease-out ${
+          className={`grid place-items-center rounded-full border transition-[width,height,background] duration-200 ease-out ${
             active
-              ? "h-10 w-10 border-[var(--uft-yellow)] bg-[var(--uft-yellow)]/15"
-              : "h-10 w-10 border-[var(--uft-yellow)]/40 bg-transparent"
+              ? "h-14 w-14 border-[var(--yellow)] bg-[var(--yellow)]/15"
+              : "h-14 w-14 border-[var(--yellow)]/35"
           }`}
         >
           {label ? (
-            <span className="font-mono text-[10px] font-bold tracking-widest text-[var(--uft-yellow)] uppercase">
+            <span className="font-mono text-[10px] font-bold tracking-[0.25em] text-[var(--yellow)] uppercase">
               {label}
             </span>
           ) : null}

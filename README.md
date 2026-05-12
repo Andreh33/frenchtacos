@@ -1,7 +1,9 @@
-# Urban French Takos — sitio web premium
+# Urban French Takos — sitio web premium · v2 editorial cut
 
-Web premium para **Urban French Takos** (Valdepeñas) construida con Next.js 16 + React 19.2,
-React Three Fiber para el taco 3D, Tailwind v4, Framer Motion, GSAP y Lenis.
+Sitio editorial de **Urban French Takos** (Valdepeñas). Next.js 16.2 + React 19.2,
+Tailwind v4, Framer Motion, Lenis. Sin Three.js, sin ilustraciones — todo es
+fotografía editorial + tipografía masiva (Clash Display) + un sistema de color
+disciplinado: ink dominante, morado de soporte, amarillo de acento.
 
 ---
 
@@ -9,16 +11,11 @@ React Three Fiber para el taco 3D, Tailwind v4, Framer Motion, GSAP y Lenis.
 
 ```bash
 npm install
-npm run dev
-# http://localhost:3000
+npm run dev          # http://localhost:3000
+npm run build && npm start
 ```
 
-```bash
-npm run build   # build de producción (Turbopack)
-npm start       # arranca el server productivo
-```
-
-> Node 20+ requerido. Probado con Node 24 LTS.
+Node 20+. Probado con Node 24 LTS.
 
 ---
 
@@ -26,15 +23,15 @@ npm start       # arranca el server productivo
 
 | Capa | Tecnología |
 |---|---|
-| Framework | Next.js 16.2 (App Router, Turbopack, React Compiler estable) |
-| UI | React 19.2 + Tailwind CSS v4 |
-| 3D | React Three Fiber + drei + three |
-| Animación | Framer Motion + GSAP (lazy) + Lenis (smooth scroll) |
-| Carrusel | embla-carousel-react |
+| Framework | Next.js 16.2 (App Router · Turbopack · React Compiler estable) |
+| UI | React 19.2 · Tailwind CSS v4 · Tokens CSS en `app/globals.css` |
+| Animación | Framer Motion (useScroll/useTransform · clip-path reveals · word-by-word scrub) |
+| Smooth scroll | Lenis (lazy-imported, desactivado por `prefers-reduced-motion`) |
+| Carrusel horizontal | Sticky CSS + Framer Motion (NO GSAP, NO ScrollTrigger) |
 | Forms | react-hook-form + zod |
-| Tipografía | Bricolage Grotesque (display) · Plus Jakarta Sans (body) · JetBrains Mono |
+| Tipografía | Clash Display + General Sans (Fontshare, auto-host) · JetBrains Mono · Playfair Italic (Google) |
 
-`next.config.ts` activa `reactCompiler: true` y `optimizePackageImports` para `framer-motion` y `@react-three/drei`.
+`next.config.ts` activa `reactCompiler: true` para memoización automática.
 
 ---
 
@@ -42,127 +39,133 @@ npm start       # arranca el server productivo
 
 ```
 app/
-  layout.tsx              # fuentes, metadata, providers globales (loader, cursor, smooth scroll)
-  page.tsx                # composición de secciones
-  globals.css             # tokens, grain overlay, marquee, reveal keyframes
-  opengraph-image.tsx     # OG dinámico 1200×630
-  apple-icon.tsx          # icono iOS
-  icon.svg, manifest.ts, robots.ts, sitemap.ts
+  layout.tsx            # fuentes, metadata, Loader + SmoothScroll + Cursor + JSON-LD
+  page.tsx              # composición de secciones
+  fonts.ts              # next/font local (Fontshare) + Google
+  globals.css           # tokens, grain, marquee, reveal-line, btn-fill
+  opengraph-image.tsx   # OG dinámico 1200×630
+  manifest.ts robots.ts sitemap.ts icon.svg
+  styleguide/page.tsx   # página interna /styleguide (8 secciones)
 
 components/
-  hero/
-    TakoCanvas.tsx        # Canvas R3F con PresentationControls + Float
-    TakoModel.tsx         # modelo procedural (cambia por GLB cuando quieras)
   layout/
-    Header.tsx            # nav con drawer fullscreen mobile
-    Footer.tsx            # manifesto + columnas + tipografía gigante
-    LegalModal.tsx        # modal accesible para aviso, privacidad, cookies
+    Header.tsx          # nav fixed transparente→ink/85, drawer fullscreen mobile
+    Footer.tsx          # manifesto + cols + wordmark gigante recortado
+    LegalModal.tsx      # modales accesibles para aviso, privacidad, cookies
   sections/
-    Hero.tsx Offers.tsx News.tsx Location.tsx Franchise.tsx App.tsx
+    Hero.tsx            # video full-bleed + headline clip-path stagger + marquee
+    Statement.tsx       # manifesto con fill palabra a palabra (useScroll)
+    Carta.tsx           # 4 takos editorial con sticky horizontal scroll (Framer)
+    Ofertas.tsx         # 3 bloques asimétricos (72% L / 66% R / 80% center)
+    Local.tsx           # foto + sticker rotado + mapa Google estilizado
+    Franquicia.tsx      # form react-hook-form + zod, mailto fallback
+    App.tsx             # mockup iPhone CSS + botones disabled
   system/
-    SmoothScroll.tsx      # Lenis + anchor handling
-    Cursor.tsx            # cursor amarillo desktop con label data-cursor
-    Loader.tsx            # "Calentando el comal…"
-    Reveal.tsx            # IntersectionObserver + reveal-clip
-    RestaurantJsonLd.tsx  # schema.org Restaurant
+    SmoothScroll.tsx    # Lenis lazy + anchor handling
+    Cursor.tsx          # cursor amarillo desktop con data-cursor dinámico
+    Loader.tsx          # logo + barra amarilla (1.0–2.0s)
+    Reveal.tsx          # IntersectionObserver + reveal-line
+    RestaurantJsonLd.tsx
 
 lib/
-  cn.ts                   # tailwind-merge + clsx
-  site.ts                 # nombre, URL, redes, dirección, horarios
-  content.ts              # ofertas, novedades, navegación
-  legal.ts                # textos legales editables
+  cn.ts                 # tailwind-merge + clsx
+  site.ts               # nombre, URL, redes, dirección, horarios, nav
+  carta.ts              # 4 takos (nombre, ingredientes, precio, foto)
+  ofertas.ts            # 3 promos (eyebrow, título, body, CTA, foto, anchor)
+  legal.ts              # textos legales editables
 
 public/
-  models/                 # añade tu .glb aquí (ver más abajo)
+  fonts/                # 7 WOFF2 auto-hospedados desde Fontshare
+  video/                # hero.mp4 (2.9MB) + hero.webm (753KB) + hero-poster.jpg
+  images/
+    carta/              # 4 fotos top-down Pexels (placeholders editoriales)
+    ofertas/            # 3 WebP de la web actual, recomprimidas (~140KB c/u)
+    local/              # 1 foto fachada placeholder (sustituir por real)
 ```
 
 ---
 
-## Cambiar el modelo 3D
+## Editar contenido — sin tocar componentes
 
-El `TakoModel.tsx` actual es procedural (Three.js primitives) para que el repo arranque sin
-descargas externas. Para usar un `.glb` real:
-
-1. Descarga uno desde **Sketchfab**, **Poly Pizza** o **CGTrader Free** (filtra por `CC0` o `CC Attribution`).
-2. Optimízalo: `npx gltf-transform optimize input.glb public/models/french-tako.glb --texture-compress webp`
-3. En `components/hero/TakoCanvas.tsx` reemplaza `<TakoModel />` por:
-
-```tsx
-import { useGLTF } from '@react-three/drei'
-const { scene } = useGLTF('/models/french-tako.glb')
-<primitive object={scene} scale={1.05} />
-```
-
-4. Anota la atribución en `public/CREDITS.md` si la licencia lo exige.
+| Quiero cambiar… | Editar archivo |
+|---|---|
+| Nombre del local, redes, dirección, horarios, link de pedidos | `lib/site.ts` |
+| Los 4 takos (nombres, ingredientes, precios, fotos) | `lib/carta.ts` |
+| Las 3 ofertas (título, copy, alineación, foto) | `lib/ofertas.ts` |
+| Textos legales (aviso, privacidad, cookies) | `lib/legal.ts` |
+| Paleta de colores | CSS vars en `app/globals.css` (`--ink`, `--yellow`, etc.) |
+| Tipografía | `app/fonts.ts` (carga local Fontshare + Google) |
 
 ---
 
-## Editar contenido
+## Reemplazar fotos
 
-- **Ofertas / novedades / nav:** `lib/content.ts`.
-- **Dirección, horarios, redes:** `lib/site.ts`.
-- **Textos legales:** `lib/legal.ts` — se renderizan tal cual en los modales.
-- **Tipografía y paleta:** CSS vars en `app/globals.css` (`--uft-*`).
-- **Tagline alternativos:** `lib/site.ts` → `taglineAlts`.
-- **Link de pedidos:** `lib/site.ts` → `orderUrl`.
+- **Carta:** sustituye los 4 archivos en `public/images/carta/` por las reales (mantén nombres o cambia las rutas en `lib/carta.ts`). Top-down o 3/4 cenital, ratios 4:5 / 3:4 funcionan.
+- **Ofertas:** sustituye los 3 WebP en `public/images/ofertas/`.
+- **Local:** sustituye `public/images/local/facade.jpg` por una foto real del local. Ratio 4:3–5:4.
+- **Hero:** reemplaza `public/video/hero.mp4` y `hero.webm` (regenera webm con `ffmpeg -i hero.mp4 -c:v libvpx-vp9 -crf 33 -b:v 0 -an hero.webm`). El poster se extrae con `ffmpeg -i hero.mp4 -ss 00:00:02 -frames:v 1 hero-poster.jpg`.
 
 ---
 
-## Microinteracciones clave
+## Microinteracciones que usa la web
 
-- Cursor custom: añade `data-cursor="VER"` (o `"PEDIR"`, `"ARRASTRA"`, etc.) a cualquier elemento clicable.
-- Reveal en scroll: envuelve en `<Reveal>` o añade clase `.reveal-clip` y mete `is-in` al entrar.
-- Botón "se sirve el plato": clase `btn-fill` + `bg-[var(--uft-yellow)]`.
-- Smooth scroll Lenis: cualquier `<a href="#id">` se anima automáticamente.
+| Patrón | Cómo usarlo |
+|---|---|
+| Cursor custom label | Añade `data-cursor="VER"` (o "PEDIR", "ARRASTRA", etc.) a cualquier clicable |
+| Botón "se sirve el plato" | Clase `btn-fill` + fondo amarillo |
+| Reveal clip-path | `<Reveal>` o clase `.reveal-line` (se añade `is-in` al entrar al viewport) |
+| Smooth scroll anchor | Cualquier `<a href="#id">` se anima automáticamente con Lenis |
+| Marquee infinito | Clase `marquee-track` sobre un wrapper `flex w-max` con contenido duplicado |
+| Word-by-word fill (scrub) | Ver `Statement.tsx` — patrón `useScroll` + `useTransform` por palabra |
+| Sticky horizontal scroll | Ver `Carta.tsx` — sección `h-[N00vh]` + sticky `top-0 h-screen` + track translado por `useTransform` |
 
 ---
 
 ## Accesibilidad y rendimiento
 
-- Skip-link en `layout.tsx`.
-- `prefers-reduced-motion`: desactiva cursor, smooth scroll, marquee, parallax y rota a fallback estático para el taco.
-- Conexiones limitadas (`Save-Data`) o viewport < 380px → no se monta el Canvas WebGL.
-- Fuentes con `display: swap`.
-- Imágenes en AVIF + WebP (auto vía `next/image` + `next.config.ts`).
+- Skip-link al `<main>` (visible al tab)
+- `prefers-reduced-motion`: desactiva Lenis, cursor custom, scrub, marquee, parallax
+- Conexiones lentas y mobile <380px: ya no había Canvas WebGL; nada que desactivar
+- Contraste AA mínimo · AAA en body (cream sobre ink)
+- Focus visible: outline amarillo 2px + offset 3px
+- `<html lang="es">` · alt descriptivo en español · `aria-modal` en legales
+- Fuentes con `display: swap`
+- Imágenes vía `next/image` → AVIF + WebP automáticos en producción
 
 ---
 
 ## Deploy en Vercel
 
-1. **GitHub**
-
 ```bash
-git init
 git add .
-git commit -m "feat: urban french takos premium website"
-git branch -M main
-git remote add origin https://github.com/Andreh33/frenchtacos.git
-git push -u origin main
+git commit -m "feat: urban french takos v2 editorial cut"
+git push origin main
 ```
 
-2. **Vercel** — entra en https://vercel.com/new, importa el repo, deploy. Detecta Next 16 automáticamente, no toques configuración.
+Luego en https://vercel.com/new importa `Andreh33/frenchtacos`. Vercel detecta Next 16 automáticamente.
 
-3. **Dominio:** Settings → Domains → añade `urbanfrenchtakos.com` y configura los DNS que indique Vercel.
+### Dominio custom
 
-4. **Env vars (opcional):** si conectas Formspree, Analytics o similar, replica `.env.local` en Vercel Dashboard → Settings → Environment Variables.
+Settings → Domains → añade `urbanfrenchtakos.com`. Vercel da los DNS (A o CNAME) que el proveedor debe configurar.
 
----
+### Sustituir el envío del form de franquicia
 
-## Sustituir el envío del form
+El form usa `mailto:` como fallback. Para producción real:
 
-`Franchise.tsx` usa `mailto:` como fallback. Para producción real:
+- **Formspree:** registra un form, sustituye el `onSubmit` en `Franquicia.tsx` por `fetch('https://formspree.io/f/XXXX', {...})`
+- **API route:** crea `app/api/franquicia/route.ts` que envíe email vía Resend / SendGrid, y haz `fetch('/api/franquicia', ...)`
 
-- **Formspree:** crea form, sustituye el `onSubmit` por `fetch('https://formspree.io/f/XXXX', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } })`.
-- **API Route:** crea `app/api/franquicia/route.ts` que envíe email con Resend o similar, y haz `fetch('/api/franquicia', …)`.
-
----
-
-## Notas de Next 16
-
-- `params` y `searchParams` ahora son `async` (no afecta a este proyecto porque no usa rutas dinámicas).
-- ESLint ya no se ejecuta en `next build`. Para validar manualmente: `npx eslint .`.
-- `AGENTS.md` y `CLAUDE.md` generados por `create-next-app` son safe to delete.
+Variables de entorno: copia `.env.example` (cuando lo añadas) a `.env.local` y replica en Vercel Dashboard → Settings → Environment Variables.
 
 ---
 
-Hecho con cariño. 🌮
+## Sobre Next 16
+
+- `params` y `searchParams` son `async` (no afecta a este proyecto, no usa rutas dinámicas)
+- ESLint ya no se ejecuta en `next build` — para validar manual: `npx eslint .`
+- Turbopack es el bundler por defecto (no necesitas `--turbopack`)
+- `AGENTS.md` y `CLAUDE.md` que genera `create-next-app` son seguros de borrar (ya borrados)
+
+---
+
+Hecho con cariño y queso fundido.

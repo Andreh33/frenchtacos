@@ -1,10 +1,9 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://urbanfrenchtakos.com";
   return [
     {
-      url: base,
+      url: "https://urbanfrenchtakos.com",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,

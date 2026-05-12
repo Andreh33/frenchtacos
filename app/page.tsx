@@ -1,19 +1,23 @@
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { Offers } from "@/components/sections/Offers";
-import { News } from "@/components/sections/News";
-import { Location } from "@/components/sections/Location";
-import { Franchise } from "@/components/sections/Franchise";
-import { AppTeaser } from "@/components/sections/App";
+import { Statement } from "@/components/sections/Statement";
+import { Carta } from "@/components/sections/Carta";
+import { Ofertas } from "@/components/sections/Ofertas";
+import { Local } from "@/components/sections/Local";
+import { Franquicia } from "@/components/sections/Franquicia";
 
 export default function Home() {
   return (
     <>
+      <Header />
       <Hero />
-      <Offers />
-      <News />
-      <Location />
-      <Franchise />
-      <AppTeaser />
+      <Statement />
+      <Carta />
+      <Ofertas />
+      <Local />
+      <Franquicia />
+      <Footer />
     </>
   );
 }

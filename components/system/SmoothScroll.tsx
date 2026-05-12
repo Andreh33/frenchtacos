@@ -7,27 +7,28 @@ export function SmoothScroll() {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let lenisInstance: { destroy: () => void } | null = null;
     let raf = 0;
+    let cleanup: () => void = () => {};
+    let cancelled = false;
 
     (async () => {
       const { default: Lenis } = await import("lenis");
+      if (cancelled) return;
+
       const lenis = new Lenis({
-        duration: 1.15,
+        duration: 1.1,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
-        wheelMultiplier: 1.05,
-        touchMultiplier: 1.4,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.3,
       });
 
-      function loop(time: number) {
+      const loop = (time: number) => {
         lenis.raf(time);
         raf = requestAnimationFrame(loop);
-      }
+      };
       raf = requestAnimationFrame(loop);
-      lenisInstance = lenis as unknown as { destroy: () => void };
 
-      // anchor handling
       const onAnchorClick = (e: MouseEvent) => {
         const target = e.target as HTMLElement;
         const anchor = target.closest("a[href^='#']") as HTMLAnchorElement | null;
@@ -37,16 +38,20 @@ export function SmoothScroll() {
         const el = document.querySelector(id);
         if (!el) return;
         e.preventDefault();
-        lenis.scrollTo(el as HTMLElement, { offset: -80 });
+        lenis.scrollTo(el as HTMLElement, { offset: -64 });
       };
       document.addEventListener("click", onAnchorClick);
 
-      return () => document.removeEventListener("click", onAnchorClick);
+      cleanup = () => {
+        document.removeEventListener("click", onAnchorClick);
+        lenis.destroy();
+      };
     })();
 
     return () => {
+      cancelled = true;
       cancelAnimationFrame(raf);
-      lenisInstance?.destroy();
+      cleanup();
     };
   }, []);
 

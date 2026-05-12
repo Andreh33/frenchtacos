@@ -1,11 +1,6 @@
 export const site = {
   name: "Urban French Takos",
-  shortName: "UFT",
   tagline: "El french tako, reventado a la calle.",
-  taglineAlts: [
-    "French takos. Recién sacados de la calle.",
-    "Calle de Lyon, alma manchega.",
-  ],
   url: "https://urbanfrenchtakos.com",
   orderUrl:
     "https://www.portalrest.com/index.html?data=%3DATPrNXYmETPtZCOxEjN4MTP0NXZSRWa",
@@ -15,8 +10,7 @@ export const site = {
       "https://www.facebook.com/people/Urban-French-Takos/61561534463204/",
   },
   location: {
-    name: "Urban French Takos — Valdepeñas",
-    address: "Calle de la Virgen, 60, Local 2",
+    address: "Calle de la Virgen, 60. Local 2",
     city: "Valdepeñas",
     region: "Ciudad Real",
     postalCode: "13300",
@@ -28,11 +22,15 @@ export const site = {
       "https://www.google.com/maps?q=Calle+de+la+Virgen+60+Local+2,+Valdepe%C3%B1as&output=embed",
     hours: [
       { day: "Lunes", time: "Cerrado" },
-      { day: "Martes a Jueves", time: "13:00 – 16:00 · 20:00 – 00:00" },
-      { day: "Viernes y Sábado", time: "13:00 – 16:00 · 20:00 – 01:00" },
+      { day: "Mar — Jue", time: "13:00 – 16:00 · 20:00 – 00:00" },
+      { day: "Vie — Sáb", time: "13:00 – 16:00 · 20:00 – 01:00" },
       { day: "Domingo", time: "13:00 – 16:00 · 20:00 – 00:00" },
     ],
   },
+  nav: [
+    { href: "#carta", label: "Carta" },
+    { href: "#ofertas", label: "Ofertas" },
+    { href: "#local", label: "Local" },
+    { href: "#franquicia", label: "Franquicia" },
+  ],
 } as const;
-
-export type Site = typeof site;

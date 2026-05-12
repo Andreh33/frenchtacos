@@ -5,112 +5,82 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-[var(--uft-yellow)]/30 bg-[var(--uft-purple-deep)] pt-24 pb-8">
-      <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-12 md:gap-8">
+    <footer className="relative overflow-hidden border-t border-[var(--cream)]/10 bg-[var(--ink)] pt-24 pb-8">
+      <div className="mx-auto max-w-[1800px] px-5 sm:px-10 lg:px-14">
+        {/* manifesto strip + columns */}
+        <div className="grid grid-cols-2 gap-12 md:grid-cols-12 md:gap-8">
           <div className="col-span-2 md:col-span-5">
-            <div className="font-mono text-[10px] tracking-[0.3em] text-[var(--uft-yellow)] uppercase">
-              Urban French Takos · Manifesto
+            <div className="flex items-center gap-3">
+              <span className="block h-px w-10 bg-[var(--yellow)]" />
+              <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-[var(--yellow)]">
+                Manifesto
+              </span>
             </div>
-            <p className="mt-4 max-w-md font-display text-2xl leading-tight font-bold text-[var(--uft-cream)] sm:text-3xl">
+            <p className="mt-5 max-w-md font-display text-2xl leading-[1.15] font-semibold tracking-[-0.02em] text-[var(--cream)] sm:text-[28px]">
               «&nbsp;Street food francés con alma manchega. Calle, comal, calidad.&nbsp;»
             </p>
-            <p className="mt-6 max-w-sm text-sm leading-[1.6] text-[var(--uft-cream)]/65">
-              Hecho con cariño en Valdepeñas. Cada tako sale como si fuera el primero
-              de tu vida.
+            <p className="mt-6 max-w-xs text-sm leading-[1.55] text-[var(--cream)]/55">
+              Hecho con cariño en Valdepeñas. Cada tako sale como si fuera el primero de tu vida.
             </p>
           </div>
 
-          <div className="md:col-span-2">
-            <FooterCol title="Carta">
-              <a className="footer-link" href={site.orderUrl} target="_blank" rel="noopener noreferrer">
-                Pedir online
-              </a>
-              <a className="footer-link" href="#ofertas">
-                Ofertas
-              </a>
-              <a className="footer-link" href="#actualidad">
-                Novedades
-              </a>
-            </FooterCol>
-          </div>
+          <FooterCol title="Carta">
+            <a className="footer-link" href={site.orderUrl} target="_blank" rel="noopener noreferrer">
+              Pedir online ↗
+            </a>
+            <a className="footer-link" href="#carta">Ver carta</a>
+            <a className="footer-link" href="#ofertas">Ofertas</a>
+          </FooterCol>
 
-          <div className="md:col-span-2">
-            <FooterCol title="Marca">
-              <a className="footer-link" href="#local">
-                Local
-              </a>
-              <a className="footer-link" href="#franquicia">
-                Franquicia
-              </a>
-              <a className="footer-link" href="#app">
-                App
-              </a>
-            </FooterCol>
-          </div>
+          <FooterCol title="Marca">
+            <a className="footer-link" href="#local">Local</a>
+            <a className="footer-link" href="#franquicia">Franquicia</a>
+          </FooterCol>
 
-          <div className="md:col-span-3">
-            <FooterCol title="Redes">
-              <a
-                className="footer-link"
-                href={site.socials.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Instagram ↗
-              </a>
-              <a
-                className="footer-link"
-                href={site.socials.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Facebook ↗
-              </a>
-              <a className="footer-link" href={site.location.mapsUrl} target="_blank" rel="noopener noreferrer">
-                Cómo llegar ↗
-              </a>
-            </FooterCol>
-          </div>
+          <FooterCol title="Redes">
+            <a className="footer-link" href={site.socials.instagram} target="_blank" rel="noopener noreferrer">
+              Instagram ↗
+            </a>
+            <a className="footer-link" href={site.socials.facebook} target="_blank" rel="noopener noreferrer">
+              Facebook ↗
+            </a>
+            <a className="footer-link" href={site.location.mapsUrl} target="_blank" rel="noopener noreferrer">
+              Cómo llegar ↗
+            </a>
+          </FooterCol>
         </div>
 
-        {/* Oversized logo */}
+        {/* OVERSIZED WORDMARK */}
         <div
           aria-hidden
-          className="relative mt-20 -mb-16 overflow-hidden md:-mb-28"
+          className="relative mt-24 -mb-[6vw] overflow-hidden md:-mb-[5vw]"
         >
           <div
-            className="font-display font-extrabold leading-[0.78] tracking-tight text-[var(--uft-cream)]/[0.06] select-none"
-            style={{ fontSize: "clamp(5rem, 22vw, 22rem)" }}
+            className="font-display font-bold leading-[0.78] tracking-[-0.05em] text-[var(--cream)]/[0.06] select-none whitespace-nowrap"
+            style={{ fontSize: "clamp(5rem, 23vw, 26rem)" }}
           >
-            URBAN·FRENCH·TAKOS
+            URBAN·UFT
           </div>
         </div>
 
-        <div className="relative mt-8 border-t border-[var(--uft-cream)]/10 pt-8">
-          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-            <div className="font-mono text-[10px] tracking-[0.25em] text-[var(--uft-cream)]/55 uppercase">
-              © {year} Urban French Takos · Valdepeñas · Hecho con cariño
+        <div className="relative mt-10 border-t border-[var(--cream)]/10 pt-8">
+          <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
+            <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--cream)]/55">
+              © {year} Urban French Takos · Valdepeñas
             </div>
-            <div className="flex flex-wrap items-center gap-4">
-              <LegalModalTrigger
-                doc="aviso"
-                className="footer-link font-mono text-[10px] tracking-[0.25em] uppercase"
-              >
+            <div className="flex flex-wrap items-center gap-5">
+              <LegalModalTrigger doc="aviso" className="footer-link-mono">
                 Aviso legal
               </LegalModalTrigger>
-              <LegalModalTrigger
-                doc="privacidad"
-                className="footer-link font-mono text-[10px] tracking-[0.25em] uppercase"
-              >
+              <LegalModalTrigger doc="privacidad" className="footer-link-mono">
                 Privacidad
               </LegalModalTrigger>
-              <LegalModalTrigger
-                doc="cookies"
-                className="footer-link font-mono text-[10px] tracking-[0.25em] uppercase"
-              >
+              <LegalModalTrigger doc="cookies" className="footer-link-mono">
                 Cookies
               </LegalModalTrigger>
+              <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--cream)]/40">
+                Hecho con cariño y queso fundido.
+              </span>
             </div>
           </div>
         </div>
@@ -120,12 +90,21 @@ export function Footer() {
         .footer-link {
           display: block;
           color: rgba(255,248,231,0.75);
-          font-size: 0.875rem;
-          line-height: 1.75rem;
+          font-size: 0.9rem;
+          line-height: 1.85rem;
           transition: color 0.2s ease, transform 0.2s ease;
           text-align: left;
         }
-        .footer-link:hover { color: var(--uft-yellow); transform: translateX(2px); }
+        .footer-link:hover { color: var(--yellow); transform: translateX(2px); }
+        .footer-link-mono {
+          font-family: var(--font-mono), monospace;
+          font-size: 10px;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: rgba(255,248,231,0.55);
+          transition: color 0.2s ease;
+        }
+        .footer-link-mono:hover { color: var(--yellow); }
       `}</style>
     </footer>
   );
@@ -133,8 +112,8 @@ export function Footer() {
 
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div>
-      <div className="mb-3 font-mono text-[10px] tracking-[0.3em] text-[var(--uft-yellow)] uppercase">
+    <div className="md:col-span-2">
+      <div className="mb-3 font-mono text-[10px] tracking-[0.35em] uppercase text-[var(--yellow)]">
         {title}
       </div>
       <div className="flex flex-col gap-1">{children}</div>

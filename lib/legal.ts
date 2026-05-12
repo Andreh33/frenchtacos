@@ -1,7 +1,7 @@
 export const legal = {
   aviso: {
     title: "Aviso Legal",
-    body: `En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico, te informamos de que este sitio web es titularidad de Urban French Takos, con domicilio en Calle de la Virgen, 60, Local 2, Valdepeñas (Ciudad Real).
+    body: `En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico, este sitio web es titularidad de Urban French Takos, con domicilio en Calle de la Virgen, 60, Local 2, Valdepeñas (Ciudad Real).
 
 El uso de este sitio web implica la aceptación plena y sin reservas de las disposiciones del presente Aviso Legal. Urban French Takos se reserva el derecho a modificar, suprimir o actualizar el contenido del sitio web sin previo aviso.
 

@@ -6,7 +6,7 @@ export function RestaurantJsonLd() {
     "@type": "Restaurant",
     name: site.name,
     url: site.url,
-    image: `${site.url}/og.jpg`,
+    image: `${site.url}/opengraph-image`,
     servesCuisine: ["French Tacos", "Street food"],
     priceRange: "€€",
     address: {

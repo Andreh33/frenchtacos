@@ -53,14 +53,14 @@ export function LegalModalTrigger({
               exit={{ y: 40, opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.65, 0, 0.35, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-h-[85vh] w-full max-w-2xl overflow-y-auto border-2 border-[var(--uft-yellow)] bg-[var(--uft-purple-deep)] p-6 sm:p-10"
+              className="relative max-h-[88vh] w-full max-w-2xl overflow-y-auto border border-[var(--yellow)] bg-[var(--ink)] p-6 sm:p-10"
             >
               <div className="mb-6 flex items-start justify-between gap-4">
                 <div>
-                  <div className="font-mono text-[10px] tracking-[0.3em] text-[var(--uft-yellow)] uppercase">
+                  <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-[var(--yellow)]">
                     Legal
                   </div>
-                  <h2 className="mt-2 font-display text-2xl leading-tight font-extrabold text-[var(--uft-cream)] sm:text-3xl">
+                  <h2 className="mt-2 font-display text-2xl leading-tight font-bold tracking-[-0.02em] text-[var(--cream)] sm:text-3xl">
                     {title}
                   </h2>
                 </div>
@@ -68,12 +68,12 @@ export function LegalModalTrigger({
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Cerrar"
-                  className="grid h-10 w-10 place-items-center border border-[var(--uft-cream)]/30 text-[var(--uft-cream)] transition-colors hover:border-[var(--uft-yellow)] hover:text-[var(--uft-yellow)]"
+                  className="grid h-10 w-10 place-items-center border border-[var(--cream)]/25 text-[var(--cream)] transition-colors hover:border-[var(--yellow)] hover:text-[var(--yellow)]"
                 >
                   ✕
                 </button>
               </div>
-              <div className="space-y-4 text-sm leading-[1.7] whitespace-pre-line text-[var(--uft-cream)]/85">
+              <div className="space-y-4 text-sm leading-[1.7] whitespace-pre-line text-[var(--cream)]/85">
                 {body}
               </div>
             </motion.div>
