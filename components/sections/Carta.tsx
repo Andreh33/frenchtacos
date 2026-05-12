@@ -184,13 +184,18 @@ function TakoPanel({ tako, index }: { tako: Tako; index: number }) {
                 Precio
               </span>
               <div
-                className="font-display font-bold tracking-[-0.06em] text-[var(--yellow)]"
-                style={{ fontSize: "clamp(4rem, 9vw, 10rem)", lineHeight: 0.84 }}
+                className="flex items-start font-display font-bold tracking-[-0.06em] text-[var(--yellow)]"
+                style={{ lineHeight: 0.84 }}
               >
-                {tako.price.whole}
+                <span style={{ fontSize: "clamp(4rem, 9vw, 10rem)" }}>
+                  {tako.price.whole}
+                </span>
                 <span
-                  className="align-top"
-                  style={{ fontSize: "clamp(1rem, 1.8vw, 1.6rem)" }}
+                  className="ml-1 tracking-normal"
+                  style={{
+                    fontSize: "clamp(1rem, 1.8vw, 1.6rem)",
+                    marginTop: "0.4em",
+                  }}
                 >
                   {tako.price.decimals}
                 </span>
@@ -265,11 +270,18 @@ function TakoPanelMobile({ tako }: { tako: Tako }) {
               Precio
             </span>
             <div
-              className="font-display font-bold tracking-[-0.06em] text-[var(--yellow)]"
-              style={{ fontSize: "clamp(4rem, 18vw, 7rem)", lineHeight: 0.84 }}
+              className="flex items-start font-display font-bold tracking-[-0.06em] text-[var(--yellow)]"
+              style={{ lineHeight: 0.84 }}
             >
-              {tako.price.whole}
-              <span className="text-lg align-top">{tako.price.decimals}</span>
+              <span style={{ fontSize: "clamp(4rem, 18vw, 7rem)" }}>
+                {tako.price.whole}
+              </span>
+              <span
+                className="ml-1 text-lg tracking-normal"
+                style={{ marginTop: "0.4em" }}
+              >
+                {tako.price.decimals}
+              </span>
             </div>
           </div>
           <a
