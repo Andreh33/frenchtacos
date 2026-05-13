@@ -72,6 +72,7 @@ export function HorizontalCategory({ num, title, eyebrow, products, accent }: Pr
     <section
       ref={sectionRef}
       id={title.toLowerCase()}
+      data-category-label={title.toUpperCase()}
       className={`relative bg-[var(--ink)] h-auto ${heightStyle}`}
       aria-label={`${title} — carta`}
     >

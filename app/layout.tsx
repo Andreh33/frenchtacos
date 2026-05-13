@@ -6,6 +6,9 @@ import { SmoothScroll } from "@/components/system/SmoothScroll";
 import { Cursor } from "@/components/system/Cursor";
 import { ScrollIndicator } from "@/components/system/ScrollIndicator";
 import { SoundProvider } from "@/components/system/SoundProvider";
+import { KonamiMode } from "@/components/system/KonamiMode";
+import { NeonMode } from "@/components/system/NeonMode";
+import { WarpFilter } from "@/components/system/WarpFilter";
 import { RestaurantJsonLd } from "@/components/system/RestaurantJsonLd";
 
 const siteUrl = "https://frenchtacos.es";
@@ -69,6 +72,9 @@ export default function RootLayout({
           <SmoothScroll />
           <Cursor />
           <ScrollIndicator />
+          <NeonMode />
+          <KonamiMode />
+          <WarpFilter />
           <main id="main" className="flex-1">
             {children}
           </main>

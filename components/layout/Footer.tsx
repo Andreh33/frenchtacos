@@ -52,11 +52,11 @@ export function Footer() {
           </FooterCol>
 
           <FooterCol title="Más">
+            <a className="footer-link" href="/story">
+              Historia
+            </a>
             <a className="footer-link" href={site.socials.instagram} target="_blank" rel="noopener noreferrer">
               Instagram ↗
-            </a>
-            <a className="footer-link" href={site.pages.aboutUs} target="_blank" rel="noopener noreferrer">
-              Quiénes somos ↗
             </a>
             <a className="footer-link" href={site.pages.faq} target="_blank" rel="noopener noreferrer">
               FAQ ↗

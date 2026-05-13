@@ -8,6 +8,7 @@ export function Cursor() {
   const [label, setLabel] = useState<string | null>(null);
   const [active, setActive] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [categoryLabel, setCategoryLabel] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -71,7 +72,30 @@ export function Cursor() {
     document.addEventListener("mouseover", onOver);
     document.addEventListener("mouseleave", onLeave);
 
+    // Observe which category section is in the viewport center
+    const sections = document.querySelectorAll<HTMLElement>("[data-category-label]");
+    const io = new IntersectionObserver(
+      (entries) => {
+        const inView = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (inView) {
+          setCategoryLabel(inView.target.getAttribute("data-category-label"));
+        } else {
+          // none → reset only if no entry is reported intersecting
+          const anyVisible = Array.from(sections).some((s) => {
+            const r = s.getBoundingClientRect();
+            return r.top < window.innerHeight * 0.6 && r.bottom > window.innerHeight * 0.4;
+          });
+          if (!anyVisible) setCategoryLabel(null);
+        }
+      },
+      { threshold: [0.25, 0.55] }
+    );
+    sections.forEach((s) => io.observe(s));
+
     return () => {
+      io.disconnect();
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseleave", onLeave);
@@ -108,6 +132,10 @@ export function Cursor() {
           {label ? (
             <span className="font-mono text-[10px] font-bold tracking-[0.25em] text-[var(--yellow)] uppercase">
               {label}
+            </span>
+          ) : categoryLabel ? (
+            <span className="font-mono text-[9px] font-bold tracking-[0.3em] text-[var(--yellow)]/85 uppercase">
+              {categoryLabel}
             </span>
           ) : null}
         </div>

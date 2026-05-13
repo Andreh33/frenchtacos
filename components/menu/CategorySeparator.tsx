@@ -28,6 +28,7 @@ export function CategorySeparator({ number, nextTitle, nextEyebrow }: Props) {
   return (
     <section
       ref={ref}
+      data-warp-trigger
       className="relative grid min-h-[80vh] place-items-center overflow-hidden bg-[var(--ink)] py-[12vh] sm:min-h-[95vh]"
       aria-hidden
     >

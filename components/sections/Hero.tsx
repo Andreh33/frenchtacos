@@ -21,6 +21,8 @@ const MARQUEE_ITEMS = [
   "DESDE 7,50€",
 ];
 
+const MARQUEE_NIGHT = "◉ NOCTURNE — LA CALLE NUNCA DUERME";
+
 function CurrentTime() {
   const [now, setNow] = useState<string>("");
   useEffect(() => {
@@ -37,6 +39,49 @@ function CurrentTime() {
 
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+
+  // Mouse parallax — text drifts subtly opposite to cursor
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
+
+    let raf = 0;
+    let tx = 0;
+    let ty = 0;
+    let cx = 0;
+    let cy = 0;
+
+    const onMove = (e: MouseEvent) => {
+      const hero = heroRef.current;
+      const headline = headlineRef.current;
+      if (!hero || !headline) return;
+      const r = hero.getBoundingClientRect();
+      const nx = (e.clientX - r.left - r.width / 2) / r.width;
+      const ny = (e.clientY - r.top - r.height / 2) / r.height;
+      // opposite direction, max ~12px
+      tx = nx * -12;
+      ty = ny * -8;
+    };
+
+    const tick = () => {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      if (headlineRef.current) {
+        headlineRef.current.style.setProperty("--parallax-x", `${cx}px`);
+        headlineRef.current.style.setProperty("--parallax-y", `${cy}px`);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    window.addEventListener("mousemove", onMove, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", onMove);
+    };
+  }, []);
 
   // Scroll-linked darkening: as user scrolls, overlay darkens + content fades
   const { scrollYProgress } = useScroll({
@@ -133,7 +178,15 @@ export function Hero() {
         className="relative z-10 flex flex-1 flex-col justify-end px-5 pb-32 sm:px-8 sm:pb-40 lg:px-12 lg:pb-44"
         style={{ opacity: contentOpacity, y: contentY }}
       >
-        <div className="max-w-[1400px]">
+        <div
+          ref={headlineRef}
+          className="max-w-[1400px]"
+          style={{
+            transform:
+              "translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0)",
+            transition: "transform 0.06s linear",
+          }}
+        >
           <h1
             className="font-display font-bold tracking-[-0.04em] text-[var(--cream)]"
             style={{
@@ -242,10 +295,14 @@ export function Hero() {
       <div className="absolute inset-x-0 bottom-0 z-10 overflow-hidden border-y border-[var(--yellow)] bg-[var(--ink)]">
         <div className="marquee-track flex w-max items-center gap-10 py-3.5 sm:py-4">
           {Array.from({ length: 3 }).flatMap((_, k) =>
-            MARQUEE_ITEMS.map((t, i) => (
+            [...MARQUEE_ITEMS, MARQUEE_NIGHT].map((t, i) => (
               <span
                 key={`${k}-${i}`}
-                className="flex shrink-0 items-center gap-10 font-mono text-[11px] tracking-[0.3em] text-[var(--yellow)] uppercase sm:text-[12px]"
+                className={
+                  t === MARQUEE_NIGHT
+                    ? "neon-only shrink-0 items-center gap-10 font-mono text-[11px] tracking-[0.3em] text-[var(--yellow)] uppercase sm:text-[12px]"
+                    : "flex shrink-0 items-center gap-10 font-mono text-[11px] tracking-[0.3em] text-[var(--yellow)] uppercase sm:text-[12px]"
+                }
               >
                 {t}
                 <span className="text-[var(--yellow)]/40" aria-hidden>
