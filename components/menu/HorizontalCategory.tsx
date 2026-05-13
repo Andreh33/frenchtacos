@@ -143,13 +143,14 @@ export function HorizontalCategory({ num, title, eyebrow, products }: Props) {
               key={p.num}
               className="ml-5 flex w-[85vw] shrink-0 snap-start flex-col gap-5 pr-5 last:pr-5"
             >
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--purple-deep)]/30">
+              <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image
                   src={p.image.src}
                   alt={p.image.alt}
                   fill
                   sizes="85vw"
-                  className="object-contain"
+                  className="object-cover"
+                  style={{ filter: "saturate(1.08) contrast(1.06) brightness(0.94)" }}
                 />
                 <span
                   className="pointer-events-none absolute top-3 right-3 font-display font-bold text-[var(--cream)] mix-blend-difference"
@@ -214,12 +215,8 @@ function ProductPanel({
             fill
             priority={index === 0}
             sizes="(min-width: 768px) 60vw, 100vw"
-            className={product.placeholder ? "object-cover" : "object-contain"}
-            style={
-              product.placeholder
-                ? { filter: "saturate(1.05) contrast(1.05) brightness(0.92)" }
-                : undefined
-            }
+            className="object-cover"
+            style={{ filter: "saturate(1.08) contrast(1.06) brightness(0.94)" }}
           />
           <span
             className={`pointer-events-none absolute top-5 z-10 font-display font-bold text-[var(--cream)] mix-blend-difference ${

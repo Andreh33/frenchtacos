@@ -1,25 +1,35 @@
 # Créditos y atribuciones
 
-## Marca y assets propios del cliente
+## Marca propia del cliente
 - `public/brand/logo.png` — logo oficial CLM French Tacos
-- `public/og.jpg` — imagen de cabecera tomada del sitio oficial (frenchtacos.es)
-- `public/images/tacos/*.png` — catálogo oficial CLM
-- `public/images/burgers/*.png` — catálogo oficial CLM
-- `public/images/bowls/french-touch.png`, `bowls/tex-mex.png` — catálogo oficial CLM
-- `public/images/ensaladas/*.png` — catálogo oficial CLM
+- `public/og.jpg` — imagen de cabecera del sitio oficial (frenchtacos.es)
 
-Todos descargados de `https://frenchtacos.es/wp-content/uploads/` — propiedad del cliente.
+## Fotografía editorial — placeholders Pexels (sustituir por fotos reales del producto)
 
-## Placeholders externos a sustituir cuando se entreguen fotos reales
+Todos los archivos en `public/images/{tacos,burgers,bowls,ensaladas}/*.jpg` y
+`public/video/hero.*` + `public/images/local/facade.jpg` son **fotografía editorial
+de Pexels** bajo Pexels License (libre uso comercial, sin atribución obligatoria).
 
-| Archivo | Origen | Licencia |
-|---|---|---|
-| `public/video/hero.mp4` / `hero.webm` | Pexels — *Person Making a Burrito* (ID 5528074, sadiq Padela) | Pexels License |
-| `public/images/local/facade.jpg` | Pexels — *Neon storefront* (ID 2840651) | Pexels License |
-| `public/images/bowls/cabra-miel-placeholder.jpg` | Pexels — ID 1410236 | Pexels License |
-| `public/images/bowls/gratipollo-placeholder.jpg` | Pexels — ID 2271107 | Pexels License |
-
-Pexels License = libre uso comercial, sin atribución obligatoria.
+| Producto | Pexels ID |
+|---|---|
+| hero video | 5528074 — *Person Making a Burrito* (sadiq Padela) |
+| local/facade | 2840651 — neon storefront |
+| tacos/tex-mex | 36750266 — beef wrap with fries |
+| tacos/cabra-miel | 36925851 — chicken wrap with vegetables |
+| tacos/spicy | 36750264 — tasty beef wrap |
+| tacos/gratipollo | 36750267 — beef wrap with fries |
+| burgers/black-premium | 28902885 — smoky cheeseburger |
+| burgers/smash | 36554033 — gourmet cheese burger |
+| burgers/testy | 34407519 — gourmet cheeseburger |
+| burgers/crispy | 36570987 — cheeseburger with bacon |
+| burgers/fish | 8250195 — hamburger |
+| burgers/veggie | 30500743 — cheeseburger with fresh ingredients |
+| bowls/french-touch | 9980765 — chicken on rice |
+| bowls/tex-mex | 24738519 — chicken with rice |
+| bowls/cabra-miel | 32810337 — chicken salad bowl |
+| bowls/gratipollo | 7181164 — fried chicken with salad |
+| ensaladas/cabra-miel | 29843069 — grilled goat cheese salad |
+| ensaladas/magic-pollo | 20321645 — fresh salad on gray plate |
 
 ## Tipografía
 
