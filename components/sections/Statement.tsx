@@ -60,7 +60,7 @@ export function Statement() {
 
         <div
           ref={ref}
-          className="origin-top-left"
+          className="relative origin-top-left"
           style={{ transform: "rotate(-2.5deg)" }}
         >
           <h2
