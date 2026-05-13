@@ -100,6 +100,24 @@ export function Cursor() {
     checkCategory();
     window.addEventListener("scroll", onScroll, { passive: true });
 
+    // Debug helper
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any;
+    w.__clm = w.__clm || {};
+    w.__clm.cursor = () => ({
+      mounted: true,
+      sectionsFound: sections().length,
+      currentCategory: () => {
+        const cy = window.innerHeight / 2;
+        return sections()
+          .find((s) => {
+            const r = s.getBoundingClientRect();
+            return r.top <= cy && r.bottom >= cy;
+          })
+          ?.getAttribute("data-category-label");
+      },
+    });
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       if (scrollRaf) cancelAnimationFrame(scrollRaf);

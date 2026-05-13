@@ -35,13 +35,16 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     shortcuts: [
       {
-        name: "Pedir ahora",
-        url: "https://glovoapp.com/es/es/ciudad-real/stores/clm-french-tacos-ciudad-real",
-        description: "Abrir Glovo CLM",
+        name: "Ver carta",
+        short_name: "Carta",
+        url: "/#carta",
+        description: "Ver la carta editorial",
       },
       {
-        name: "Ver carta",
-        url: "/#carta",
+        name: "Historia",
+        short_name: "Historia",
+        url: "/story",
+        description: "Cómo un tacos francés acabó en Ciudad Real",
       },
     ],
   };

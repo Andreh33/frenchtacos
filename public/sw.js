@@ -1,7 +1,8 @@
 // CLM French Tacos — Service Worker
 // Cache-first para assets estáticos, network-first para HTML, offline fallback.
+// Bump CACHE_VERSION en cada deploy para invalidar caches viejos.
 
-const CACHE_VERSION = "clm-v1";
+const CACHE_VERSION = "clm-v3";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -35,8 +36,13 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
 
-  // Network-first for HTML documents
-  if (req.headers.get("accept")?.includes("text/html")) {
+  // Network-first for everything Next.js-generated to avoid stale chunks
+  if (
+    url.pathname.startsWith("/_next/") ||
+    url.pathname.endsWith(".js") ||
+    url.pathname.endsWith(".css") ||
+    req.headers.get("accept")?.includes("text/html")
+  ) {
     event.respondWith(
       fetch(req)
         .then((res) => {
@@ -54,7 +60,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Cache-first for static (images, fonts, video, css, js)
+  // Cache-first for static assets (images, fonts, video)
   event.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;

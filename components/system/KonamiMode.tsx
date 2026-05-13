@@ -64,6 +64,12 @@ export function KonamiMode() {
       }
     };
     document.addEventListener("keydown", onKey);
+    // Debug helper — type __clm.party() in console to force activate
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any;
+    w.__clm = w.__clm || {};
+    w.__clm.party = trigger;
+    w.__clm.konami = "ready · ↑↑↓↓←→←→BA";
     return () => document.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
