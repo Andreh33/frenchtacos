@@ -7,16 +7,16 @@ import { site } from "@/lib/site";
 type Line = { text: string; className: string; underlineCalle?: boolean };
 const lines: Line[] = [
   { text: "FRENCH", className: "" },
-  { text: "TAKOS", className: "text-[var(--yellow)]" },
+  { text: "TACOS", className: "text-[var(--yellow)]" },
   { text: "DE LA CALLE.", className: "", underlineCalle: true },
 ];
 
 const MARQUEE_ITEMS = [
   "ABIERTO HASTA LAS 00:00",
-  "MARTES 2×1",
-  "Nº01 · VALDEPEÑAS",
-  "PIDE ONLINE",
-  "DESDE 8,90€",
+  "PIDE EN GLOVO",
+  "Nº01 · CIUDAD REAL",
+  "@CLMFRENCHTACOS",
+  "DESDE 7,50€",
 ];
 
 function CurrentTime() {
@@ -77,9 +77,9 @@ export function Hero() {
           className="flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--cream)]/85"
         >
           <span className="h-1.5 w-1.5 bg-[var(--yellow)]" />
-          <span>Valdepeñas</span>
+          <span>Ciudad Real</span>
           <span className="text-[var(--cream)]/40">·</span>
-          <span>Desde 2024</span>
+          <span>Calle Ojos del Guadiana 3</span>
           <span className="text-[var(--cream)]/40">·</span>
           <span>Nº01</span>
         </motion.div>
@@ -165,9 +165,9 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 1.1 }}
             className="mt-8 max-w-md text-[15px] leading-[1.5] tracking-[-0.005em] text-[var(--cream)]/82 sm:text-[17px]"
           >
-            Street food francés con alma manchega.
+            Tacos urbanos, 100% franceses.
             <br />
-            Recién sacado del comal a la calle.
+            Carne jugosa, patatas dentro, quesazo fundido.
           </motion.p>
 
           <motion.div

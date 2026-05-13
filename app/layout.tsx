@@ -6,38 +6,40 @@ import { SmoothScroll } from "@/components/system/SmoothScroll";
 import { Cursor } from "@/components/system/Cursor";
 import { RestaurantJsonLd } from "@/components/system/RestaurantJsonLd";
 
-const siteUrl = "https://urbanfrenchtakos.com";
+const siteUrl = "https://frenchtacos.es";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Urban French Takos · Street food francés en Valdepeñas",
-    template: "%s · Urban French Takos",
+    default: "CLM French Tacos · Tacos urbanos 100% franceses en Ciudad Real",
+    template: "%s · CLM French Tacos",
   },
   description:
-    "French takos recién sacados de la calle. Pide online en Calle de la Virgen 60, Valdepeñas.",
-  applicationName: "Urban French Takos",
+    "Carne jugosa, patatas fritas dentro, quesazo fundido. El auténtico tacos francés, en Calle Ojos del Guadiana 3, Ciudad Real. Pide ya por Glovo.",
+  applicationName: "CLM French Tacos",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "es_ES",
     url: siteUrl,
-    siteName: "Urban French Takos",
-    title: "Urban French Takos · Street food francés en Valdepeñas",
+    siteName: "CLM French Tacos",
+    title: "CLM French Tacos · Tacos urbanos 100% franceses",
     description:
-      "French takos recién sacados de la calle. Pide online en Valdepeñas.",
+      "Carne jugosa, patatas dentro, quesazo fundido. En Ciudad Real. Pide por Glovo.",
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "CLM French Tacos" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Urban French Takos",
-    description: "French takos recién sacados de la calle.",
+    title: "CLM French Tacos",
+    description: "Tacos urbanos, 100% franceses, en Ciudad Real.",
+    images: ["/og.jpg"],
   },
   manifest: "/manifest.webmanifest",
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A0612",
+  themeColor: "#070707",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,

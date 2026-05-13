@@ -6,8 +6,10 @@ export function RestaurantJsonLd() {
     "@type": "Restaurant",
     name: site.name,
     url: site.url,
-    image: `${site.url}/opengraph-image`,
-    servesCuisine: ["French Tacos", "Street food"],
+    image: `${site.url}/og.jpg`,
+    telephone: site.phone,
+    email: site.email,
+    servesCuisine: ["French Tacos", "Burgers", "Street food"],
     priceRange: "€€",
     address: {
       "@type": "PostalAddress",
@@ -22,7 +24,7 @@ export function RestaurantJsonLd() {
       latitude: site.location.lat,
       longitude: site.location.lng,
     },
-    sameAs: [site.socials.instagram, site.socials.facebook],
+    sameAs: [site.socials.instagram],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",

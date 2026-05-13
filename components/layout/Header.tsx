@@ -37,25 +37,30 @@ export function Header() {
         <div className="mx-auto flex h-14 max-w-[1800px] items-center justify-between px-5 sm:h-16 sm:px-8 lg:px-12">
           <Link
             href="/"
-            aria-label="Urban French Takos — inicio"
+            aria-label="CLM French Tacos — inicio"
             className="group flex items-center gap-2.5 font-display text-[15px] font-semibold tracking-[-0.02em] text-[var(--cream)]"
           >
             <span className="block h-1.5 w-1.5 rounded-full bg-[var(--yellow)] transition-transform duration-300 group-hover:scale-150" />
-            URBAN·UFT
+            CLM·FRENCH·TACOS
           </Link>
 
           <nav className="hidden items-center gap-9 lg:flex">
-            {site.nav.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="group relative font-mono text-[11px] tracking-[0.25em] uppercase text-[var(--cream)]/80 transition-colors hover:text-[var(--yellow)]"
-                data-cursor="VER"
-              >
-                {l.label}
-                <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-[var(--yellow)] transition-transform duration-300 group-hover:scale-x-100" />
-              </a>
-            ))}
+            {site.nav.map((l) => {
+              const isExternal = "external" in l && l.external;
+              return (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  className="group relative font-mono text-[11px] tracking-[0.25em] uppercase text-[var(--cream)]/80 transition-colors hover:text-[var(--yellow)]"
+                  data-cursor="VER"
+                >
+                  {l.label}
+                  <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-[var(--yellow)] transition-transform duration-300 group-hover:scale-x-100" />
+                </a>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-3">
@@ -105,31 +110,36 @@ export function Header() {
           >
             <div className="h-14 sm:h-16" aria-hidden />
             <nav className="flex flex-1 flex-col justify-center gap-1 px-6 pb-16">
-              {site.nav.map((l, i) => (
-                <motion.div
-                  key={l.href}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{
-                    delay: 0.05 + i * 0.06,
-                    duration: 0.55,
-                    ease: [0.65, 0, 0.35, 1],
-                  }}
-                  className="group border-b border-[var(--cream)]/10"
-                >
-                  <a
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="flex items-baseline justify-between py-5 font-display text-4xl font-bold tracking-[-0.03em] text-[var(--cream)] transition-colors group-hover:text-[var(--yellow)] sm:text-5xl"
+              {site.nav.map((l, i) => {
+                const isExternal = "external" in l && l.external;
+                return (
+                  <motion.div
+                    key={l.href}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{
+                      delay: 0.05 + i * 0.06,
+                      duration: 0.55,
+                      ease: [0.65, 0, 0.35, 1],
+                    }}
+                    className="group border-b border-[var(--cream)]/10"
                   >
-                    <span>{l.label}</span>
-                    <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--yellow)]/80">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </a>
-                </motion.div>
-              ))}
+                    <a
+                      href={l.href}
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noopener noreferrer" : undefined}
+                      onClick={() => setOpen(false)}
+                      className="flex items-baseline justify-between py-5 font-display text-4xl font-bold tracking-[-0.03em] text-[var(--cream)] transition-colors group-hover:text-[var(--yellow)] sm:text-5xl"
+                    >
+                      <span>{l.label}</span>
+                      <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--yellow)]/80">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </a>
+                  </motion.div>
+                );
+              })}
               <motion.a
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}

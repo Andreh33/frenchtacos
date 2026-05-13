@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/", disallow: ["/styleguide"] },
-    sitemap: "https://urbanfrenchtakos.com/sitemap.xml",
-    host: "https://urbanfrenchtakos.com",
+    sitemap: "https://frenchtacos.es/sitemap.xml",
+    host: "https://frenchtacos.es",
   };
 }

@@ -17,35 +17,38 @@ export function Footer() {
               </span>
             </div>
             <p className="mt-5 max-w-md font-display text-2xl leading-[1.15] font-semibold tracking-[-0.02em] text-[var(--cream)] sm:text-[28px]">
-              «&nbsp;Street food francés con alma manchega. Calle, comal, calidad.&nbsp;»
+              «&nbsp;Tacos urbanos, 100% franceses. Carne jugosa, patatas dentro, quesazo fundido.&nbsp;»
             </p>
             <p className="mt-6 max-w-xs text-sm leading-[1.55] text-[var(--cream)]/55">
-              Hecho con cariño en Valdepeñas. Cada tako sale como si fuera el primero de tu vida.
+              Hecho con cariño en Ciudad Real. Calle Ojos del Guadiana 3.
             </p>
           </div>
 
           <FooterCol title="Carta">
             <a className="footer-link" href={site.orderUrl} target="_blank" rel="noopener noreferrer">
-              Pedir online ↗
+              Pedir en Glovo ↗
             </a>
             <a className="footer-link" href="#carta">Ver carta</a>
-            <a className="footer-link" href="#ofertas">Ofertas</a>
+            <a className="footer-link" href={site.pages.fullMenu} target="_blank" rel="noopener noreferrer">
+              Menú completo ↗
+            </a>
           </FooterCol>
 
-          <FooterCol title="Marca">
-            <a className="footer-link" href="#local">Local</a>
-            <a className="footer-link" href="#franquicia">Franquicia</a>
+          <FooterCol title="Local">
+            <a className="footer-link" href="#local">Dirección</a>
+            <a className="footer-link" href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
+            <a className="footer-link" href={`mailto:${site.email}`}>{site.email}</a>
           </FooterCol>
 
-          <FooterCol title="Redes">
+          <FooterCol title="Más">
             <a className="footer-link" href={site.socials.instagram} target="_blank" rel="noopener noreferrer">
               Instagram ↗
             </a>
-            <a className="footer-link" href={site.socials.facebook} target="_blank" rel="noopener noreferrer">
-              Facebook ↗
+            <a className="footer-link" href={site.pages.aboutUs} target="_blank" rel="noopener noreferrer">
+              Quiénes somos ↗
             </a>
-            <a className="footer-link" href={site.location.mapsUrl} target="_blank" rel="noopener noreferrer">
-              Cómo llegar ↗
+            <a className="footer-link" href={site.pages.faq} target="_blank" rel="noopener noreferrer">
+              FAQ ↗
             </a>
           </FooterCol>
         </div>
@@ -59,14 +62,14 @@ export function Footer() {
             className="font-display font-bold leading-[0.78] tracking-[-0.05em] text-[var(--cream)]/[0.06] select-none whitespace-nowrap"
             style={{ fontSize: "clamp(5rem, 23vw, 26rem)" }}
           >
-            URBAN·UFT
+            CLM·FRENCH·TACOS
           </div>
         </div>
 
         <div className="relative mt-10 border-t border-[var(--cream)]/10 pt-8">
           <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
             <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--cream)]/55">
-              © {year} Urban French Takos · Valdepeñas
+              CLM French Tacos — © {year} · Ciudad Real
             </div>
             <div className="flex flex-wrap items-center gap-5">
               <LegalModalTrigger doc="aviso" className="footer-link-mono">

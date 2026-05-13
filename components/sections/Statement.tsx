@@ -9,12 +9,12 @@ type LineDef = {
 };
 
 const lines: LineDef[] = [
-  { text: "« EMPEZAMOS EN LYON." },
-  { text: "CRECIMOS EN VALDEPEÑAS." },
-  { text: "EL FRENCH TAKO" },
-  { text: "NO ES UN PRODUCTO," },
-  { text: "ES UNA FORMA DE COMER", emphasize: "italic" },
-  { text: "LA CALLE. »", emphasize: "yellow" },
+  { text: "« NACIDO EN FRANCIA," },
+  { text: "CRIADO EN LA CALLE." },
+  { text: "CARNE JUGOSA," },
+  { text: "PATATAS DENTRO," },
+  { text: "QUESAZO FUNDIDO,", emphasize: "italic" },
+  { text: "Y SE ACABÓ. »", emphasize: "yellow" },
 ];
 
 // flatten into words with their global index so we can scrub each one

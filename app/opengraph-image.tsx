@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "nodejs";
-export const alt = "Urban French Takos · Street food francés en Valdepeñas";
+export const alt = "CLM French Tacos · Tacos urbanos 100% franceses en Ciudad Real";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,16 +16,14 @@ export default async function OG() {
           flexDirection: "column",
           justifyContent: "space-between",
           background:
-            "radial-gradient(circle at 80% 30%, rgba(168,85,247,0.28), transparent 55%), linear-gradient(135deg, #0A0612 0%, #2A0F3D 60%, #0A0612 100%)",
+            "radial-gradient(circle at 80% 30%, rgba(168,85,247,0.18), transparent 55%), linear-gradient(135deg, #070707 0%, #2A0F3D 60%, #070707 100%)",
           color: "#FFF8E7",
           padding: "72px 80px",
           fontFamily: "system-ui",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div
-            style={{ width: 12, height: 12, borderRadius: 999, background: "#FFD60A" }}
-          />
+          <div style={{ width: 12, height: 12, borderRadius: 999, background: "#FFD60A" }} />
           <div
             style={{
               fontSize: 22,
@@ -35,7 +33,7 @@ export default async function OG() {
               color: "#FFD60A",
             }}
           >
-            Valdepeñas · Nº01 · Desde 2024
+            Ciudad Real · Nº01
           </div>
         </div>
 
@@ -44,17 +42,12 @@ export default async function OG() {
             FRENCH
           </div>
           <div style={{ fontSize: 168, fontWeight: 900, letterSpacing: -6, color: "#FFD60A" }}>
-            TAKOS.
+            TACOS.
           </div>
           <div
-            style={{
-              marginTop: 28,
-              fontSize: 28,
-              color: "rgba(255,248,231,0.85)",
-              maxWidth: 760,
-            }}
+            style={{ marginTop: 28, fontSize: 28, color: "rgba(255,248,231,0.85)", maxWidth: 820 }}
           >
-            Street food francés con alma manchega.
+            Carne jugosa, patatas dentro, quesazo fundido.
           </div>
         </div>
 
@@ -69,8 +62,8 @@ export default async function OG() {
             textTransform: "uppercase",
           }}
         >
-          <span>urbanfrenchtakos.com</span>
-          <span style={{ color: "#FFD60A" }}>Pide ya →</span>
+          <span>frenchtacos.es</span>
+          <span style={{ color: "#FFD60A" }}>Pide en Glovo →</span>
         </div>
       </div>
     ),

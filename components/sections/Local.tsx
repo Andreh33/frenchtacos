@@ -18,7 +18,7 @@ export function Local() {
             style={{ fontSize: "clamp(2.5rem, 7vw, 7rem)", lineHeight: 0.9 }}
           >
             Una calle.<br />
-            Un comal. <span className="italic-editorial text-[var(--purple-glow)]">Un Urban.</span>
+            Una plancha. <span className="italic-editorial text-[var(--purple-glow)]">CLM.</span>
           </h2>
         </div>
 
@@ -28,7 +28,7 @@ export function Local() {
             <div className="relative aspect-[4/3] w-full overflow-hidden lg:aspect-[5/4]">
               <Image
                 src="/images/local/facade.jpg"
-                alt="Fachada del local — Urban French Takos · Valdepeñas (foto representativa)"
+                alt="Fachada del local — CLM French Tacos · Ciudad Real (foto representativa)"
                 fill
                 sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-cover"
@@ -49,7 +49,7 @@ export function Local() {
           {/* INFO CARD */}
           <div className="lg:col-span-5 lg:pl-4">
             <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-[var(--yellow)]">
-              Nº01 · Valdepeñas
+              Nº01 · Ciudad Real
             </div>
             <h3
               className="mt-4 font-display font-bold tracking-[-0.035em] text-[var(--cream)]"
@@ -80,16 +80,54 @@ export function Local() {
               </ul>
             </div>
 
-            <a
-              href={site.location.mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-fill group mt-10 inline-flex items-center gap-3 border border-[var(--yellow)] bg-[var(--yellow)] px-7 py-4 font-mono text-[11px] tracking-[0.3em] text-[var(--ink)] uppercase"
-              data-cursor="ABRIR"
-            >
-              <span className="relative z-10">Cómo llegar</span>
-              <span className="relative z-10 transition-transform group-hover:translate-x-1">↗</span>
-            </a>
+            <div className="mt-10 grid grid-cols-2 gap-4 border-t border-[var(--cream)]/10 pt-6 text-[13px]">
+              <a
+                href={`tel:${site.phone}`}
+                className="group block"
+                data-cursor="LLAMAR"
+              >
+                <div className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--cream)]/55">
+                  Llama
+                </div>
+                <div className="mt-1 font-mono text-[var(--yellow)] transition-colors group-hover:text-[var(--yellow-warm)]">
+                  {site.phoneDisplay}
+                </div>
+              </a>
+              <a
+                href={`mailto:${site.email}`}
+                className="group block"
+                data-cursor="ESCRIBIR"
+              >
+                <div className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--cream)]/55">
+                  Escribe
+                </div>
+                <div className="mt-1 font-mono text-[var(--yellow)] transition-colors group-hover:text-[var(--yellow-warm)]">
+                  {site.email}
+                </div>
+              </a>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              <a
+                href={site.location.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-fill group inline-flex items-center gap-3 border border-[var(--yellow)] bg-[var(--yellow)] px-7 py-4 font-mono text-[11px] tracking-[0.3em] text-[var(--ink)] uppercase"
+                data-cursor="ABRIR"
+              >
+                <span className="relative z-10">Cómo llegar</span>
+                <span className="relative z-10 transition-transform group-hover:translate-x-1">↗</span>
+              </a>
+              <a
+                href={site.orderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 border border-[var(--cream)]/40 px-7 py-4 font-mono text-[11px] tracking-[0.3em] uppercase text-[var(--cream)] transition-colors hover:border-[var(--cream)] hover:bg-[var(--cream)]/5"
+                data-cursor="PEDIR"
+              >
+                Pedir en Glovo ↗
+              </a>
+            </div>
           </div>
         </div>
 
@@ -106,7 +144,7 @@ export function Local() {
             style={{ filter: "invert(0.92) hue-rotate(200deg) saturate(0.9) brightness(0.95)" }}
           >
             <iframe
-              title="Mapa Urban French Takos"
+              title="Mapa CLM French Tacos · Ciudad Real"
               src={site.location.embedUrl}
               width="100%"
               height="100%"
