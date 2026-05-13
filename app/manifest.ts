@@ -6,9 +6,43 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "CLM Tacos",
     description: "Tacos urbanos, 100% franceses, en Ciudad Real.",
     start_url: "/",
+    scope: "/",
     display: "standalone",
+    display_override: ["standalone", "minimal-ui"],
+    orientation: "portrait-primary",
     background_color: "#070707",
     theme_color: "#070707",
-    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
+    categories: ["food", "lifestyle"],
+    icons: [
+      {
+        src: "/icon.svg",
+        sizes: "any",
+        type: "image/svg+xml",
+        purpose: "any",
+      },
+      {
+        src: "/icon-maskable.svg",
+        sizes: "any",
+        type: "image/svg+xml",
+        purpose: "maskable",
+      },
+      {
+        src: "/apple-icon",
+        sizes: "180x180",
+        type: "image/png",
+        purpose: "any",
+      },
+    ],
+    shortcuts: [
+      {
+        name: "Pedir ahora",
+        url: "https://glovoapp.com/es/es/ciudad-real/stores/clm-french-tacos-ciudad-real",
+        description: "Abrir Glovo CLM",
+      },
+      {
+        name: "Ver carta",
+        url: "/#carta",
+      },
+    ],
   };
 }

@@ -9,6 +9,9 @@ import { SoundProvider } from "@/components/system/SoundProvider";
 import { KonamiMode } from "@/components/system/KonamiMode";
 import { NeonMode } from "@/components/system/NeonMode";
 import { WarpFilter } from "@/components/system/WarpFilter";
+import { ServiceWorker } from "@/components/system/ServiceWorker";
+import { InstallPrompt } from "@/components/system/InstallPrompt";
+import { LocaleProvider } from "@/components/system/LocaleProvider";
 import { RestaurantJsonLd } from "@/components/system/RestaurantJsonLd";
 
 const siteUrl = "https://frenchtacos.es";
@@ -41,6 +44,14 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest",
   robots: { index: true, follow: true },
+  appleWebApp: {
+    capable: true,
+    title: "CLM Tacos",
+    statusBarStyle: "black-translucent",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export const viewport: Viewport = {
@@ -67,6 +78,7 @@ export default function RootLayout({
         >
           Saltar al contenido
         </a>
+        <LocaleProvider>
         <SoundProvider>
           <Loader />
           <SmoothScroll />
@@ -75,11 +87,14 @@ export default function RootLayout({
           <NeonMode />
           <KonamiMode />
           <WarpFilter />
+          <ServiceWorker />
+          <InstallPrompt />
           <main id="main" className="flex-1">
             {children}
           </main>
           <RestaurantJsonLd />
         </SoundProvider>
+        </LocaleProvider>
       </body>
     </html>
   );

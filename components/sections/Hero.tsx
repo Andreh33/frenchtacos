@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
 import { Magnetic } from "@/components/system/Magnetic";
 import { CursorTrail } from "@/components/system/CursorTrail";
+import { useLocale } from "@/components/system/LocaleProvider";
 
 type Line = { text: string; className: string; underlineCalle?: boolean };
 const lines: Line[] = [
@@ -40,6 +41,7 @@ function CurrentTime() {
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
+  const { t } = useLocale();
 
   // Mouse parallax — text drifts subtly opposite to cursor
   useEffect(() => {
@@ -249,9 +251,9 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 1.1 }}
             className="mt-8 max-w-md text-[15px] leading-[1.5] tracking-[-0.005em] text-[var(--cream)]/82 sm:text-[17px]"
           >
-            Tacos urbanos, 100% franceses.
+            {t.heroSub1}
             <br />
-            Carne jugosa, patatas dentro, quesazo fundido.
+            {t.heroSub2}
           </motion.p>
 
           <motion.div
@@ -268,7 +270,7 @@ export function Hero() {
                 className="btn-fill group inline-flex items-center gap-3 border border-[var(--yellow)] bg-[var(--yellow)] px-7 py-4 font-mono text-[11px] tracking-[0.3em] text-[var(--ink)] uppercase"
                 data-cursor="PEDIR"
               >
-                <span className="relative z-10">Pide ya</span>
+                <span className="relative z-10">{t.heroCtaPrimary}</span>
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -285,7 +287,7 @@ export function Hero() {
               className="inline-flex items-center gap-3 border border-[var(--cream)]/40 px-7 py-4 font-mono text-[11px] tracking-[0.3em] text-[var(--cream)] uppercase transition-colors hover:border-[var(--cream)] hover:bg-[var(--cream)]/5"
               data-cursor="VER"
             >
-              Ver carta
+              {t.heroCtaSecondary}
             </a>
           </motion.div>
         </div>

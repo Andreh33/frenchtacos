@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
 import { Magnetic } from "@/components/system/Magnetic";
+import { LocaleSwitcher } from "@/components/system/LocaleSwitcher";
+import { useLocale } from "@/components/system/LocaleProvider";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -113,6 +115,16 @@ export function Header() {
             })}
           </nav>
 
+          {/* LANG SWITCHER */}
+          <motion.div
+            initial={{ x: 40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.55, delay: 0.5, ease: [0.65, 0, 0.35, 1] }}
+            className="hidden sm:flex"
+          >
+            <LocaleSwitcher />
+          </motion.div>
+
           {/* CTA (right entry from right) */}
           <motion.div
             initial={{ x: 40, opacity: 0 }}
@@ -209,6 +221,7 @@ export function Header() {
 }
 
 function MagneticCTA() {
+  const { t } = useLocale();
   return (
     <Magnetic strength={0.3} radius={60}>
       <a
@@ -218,7 +231,7 @@ function MagneticCTA() {
         className="btn-fill hidden items-center gap-1.5 rounded-full border border-[var(--yellow)] bg-[var(--yellow)] px-4 py-2 font-mono text-[10.5px] tracking-[0.25em] text-[var(--ink)] uppercase sm:inline-flex sm:px-5 sm:py-2.5"
         data-cursor="PEDIR"
       >
-        <span className="relative z-10">Pide ya</span>
+        <span className="relative z-10">{t.navOrder}</span>
         <span className="relative z-10">→</span>
       </a>
     </Magnetic>

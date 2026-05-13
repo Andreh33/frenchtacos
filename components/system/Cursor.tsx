@@ -72,30 +72,37 @@ export function Cursor() {
     document.addEventListener("mouseover", onOver);
     document.addEventListener("mouseleave", onLeave);
 
-    // Observe which category section is in the viewport center
-    const sections = document.querySelectorAll<HTMLElement>("[data-category-label]");
-    const io = new IntersectionObserver(
-      (entries) => {
-        const inView = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (inView) {
-          setCategoryLabel(inView.target.getAttribute("data-category-label"));
-        } else {
-          // none → reset only if no entry is reported intersecting
-          const anyVisible = Array.from(sections).some((s) => {
-            const r = s.getBoundingClientRect();
-            return r.top < window.innerHeight * 0.6 && r.bottom > window.innerHeight * 0.4;
-          });
-          if (!anyVisible) setCategoryLabel(null);
+    // Check which [data-category-label] section's middle is at viewport center.
+    // We can't use IntersectionObserver thresholds because the sections are
+    // taller than viewport (md:h-[400-600vh]) so intersectionRatio max is < 0.25.
+    let scrollRaf = 0;
+    const sections = () =>
+      Array.from(document.querySelectorAll<HTMLElement>("[data-category-label]"));
+
+    const checkCategory = () => {
+      scrollRaf = 0;
+      const centerY = window.innerHeight / 2;
+      let found: string | null = null;
+      for (const s of sections()) {
+        const r = s.getBoundingClientRect();
+        if (r.top <= centerY && r.bottom >= centerY) {
+          found = s.getAttribute("data-category-label");
+          break;
         }
-      },
-      { threshold: [0.25, 0.55] }
-    );
-    sections.forEach((s) => io.observe(s));
+      }
+      setCategoryLabel(found);
+    };
+
+    const onScroll = () => {
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(checkCategory);
+    };
+    checkCategory();
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
-      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseleave", onLeave);

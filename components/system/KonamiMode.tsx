@@ -37,21 +37,30 @@ export function KonamiMode() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (active) return;
+      if (e.repeat) return;
       const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-      buffer.current.push(key);
-      if (buffer.current.length > SEQUENCE.length) {
-        buffer.current.shift();
+      // Only buffer keys that could be part of the sequence
+      const next = [...buffer.current, key].slice(-SEQUENCE.length);
+      buffer.current = next;
+
+      // Check progressive match — gives feedback / lets us preventDefault on arrows
+      const matchSoFar = next.every(
+        (k, i) => k === SEQUENCE[SEQUENCE.length - next.length + i]
+      );
+      if (matchSoFar && key.startsWith("Arrow")) {
+        e.preventDefault();
       }
-      if (buffer.current.length === SEQUENCE.length) {
-        const match = SEQUENCE.every((k, i) => buffer.current[i] === k);
-        if (match) {
+
+      if (next.length === SEQUENCE.length) {
+        const full = SEQUENCE.every((k, i) => next[i] === k);
+        if (full) {
           buffer.current = [];
           trigger();
         }
       }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 

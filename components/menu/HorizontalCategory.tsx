@@ -12,6 +12,15 @@ import type { Product, CategoryAccent } from "@/lib/menu";
 import { site } from "@/lib/site";
 import { sound } from "@/lib/sound";
 
+// Category video loops — one per category, plays on hover (desktop)
+// and as background ambient (mobile after first interaction).
+const CATEGORY_VIDEO: Record<string, string> = {
+  Tacos: "/video/carta/tacos.webm",
+  Burgers: "/video/carta/burgers.webm",
+  Bowls: "/video/carta/bowls.webm",
+  Ensaladas: "/video/carta/ensaladas.webm",
+};
+
 type Props = {
   num: string;
   title: string;
@@ -237,6 +246,17 @@ function ProductPanel({
             imageLeft ? "order-1" : "order-2"
           }`}
           data-cursor="PEDIR"
+          onMouseEnter={(e) => {
+            const v = e.currentTarget.querySelector("video");
+            v?.play().catch(() => {});
+          }}
+          onMouseLeave={(e) => {
+            const v = e.currentTarget.querySelector("video");
+            if (v) {
+              v.pause();
+              v.currentTime = 0;
+            }
+          }}
         >
           <Image
             src={product.image.src}
@@ -247,6 +267,21 @@ function ProductPanel({
             className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.04]"
             style={{ filter: "saturate(1.08) contrast(1.06) brightness(0.94)" }}
           />
+          {/* video loop — only plays on hover */}
+          {CATEGORY_VIDEO[categoryTitle] ? (
+            <video
+              aria-hidden
+              className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              muted
+              loop
+              playsInline
+              preload="none"
+              poster={CATEGORY_VIDEO[categoryTitle].replace(".webm", "-poster.jpg")}
+              style={{ filter: "saturate(1.08) contrast(1.06) brightness(0.94)" }}
+            >
+              <source src={CATEGORY_VIDEO[categoryTitle]} type="video/webm" />
+            </video>
+          ) : null}
           {/* hover dark overlay */}
           <div
             aria-hidden

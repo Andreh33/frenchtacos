@@ -1,25 +1,29 @@
 "use client";
 
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
+import { useLocale } from "@/components/system/LocaleProvider";
 
 type LineDef = {
   text: string;
   emphasize?: "italic" | "yellow";
 };
 
-const lines: LineDef[] = [
-  { text: "« NACIDO EN FRANCIA," },
-  { text: "CRIADO EN LA CALLE." },
-  { text: "CARNE JUGOSA," },
-  { text: "PATATAS DENTRO," },
-  { text: "QUESAZO FUNDIDO,", emphasize: "italic" },
-  { text: "Y SE ACABÓ. »", emphasize: "yellow" },
-];
+function buildLines(rawLines: readonly string[]): LineDef[] {
+  return rawLines.map((text, i) => ({
+    text,
+    emphasize:
+      i === rawLines.length - 2
+        ? "italic"
+        : i === rawLines.length - 1
+        ? "yellow"
+        : undefined,
+  }));
+}
 
 // flatten into words with their global index so we can scrub each one
 type Word = { text: string; line: number; word: number; total: number };
-function buildWords(): Word[] {
+function buildWords(lines: LineDef[]): Word[] {
   const out: Omit<Word, "total">[] = [];
   lines.forEach((l, lineIdx) => {
     l.text.split(/\s+/).forEach((w, wIdx) => {
@@ -29,10 +33,11 @@ function buildWords(): Word[] {
   return out.map((w) => ({ ...w, total: out.length }));
 }
 
-const WORDS = buildWords();
-
 export function Statement() {
   const ref = useRef<HTMLDivElement>(null);
+  const { t } = useLocale();
+  const lines = useMemo(() => buildLines(t.statementLines), [t.statementLines]);
+  const WORDS = useMemo(() => buildWords(lines), [lines]);
   const { scrollYProgress } = useScroll({
     target: ref,
     // start animating when section bottom enters viewport bottom,
@@ -54,7 +59,7 @@ export function Statement() {
         <div className="mb-14 flex items-center gap-3 sm:mb-20">
           <span className="block h-px w-12 bg-[var(--yellow)]" />
           <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-[var(--yellow)]">
-            Manifesto · 2024
+            {t.statementEyebrow}
           </span>
         </div>
 
@@ -95,7 +100,7 @@ export function Statement() {
           <div className="mt-16 flex items-center justify-end gap-3 sm:mt-24">
             <span className="block h-px w-12 bg-[var(--cream)]/40" />
             <span className="font-mono text-[11px] tracking-[0.3em] uppercase text-[var(--cream)]/65">
-              — CLM French Tacos
+              {t.statementSignature}
             </span>
           </div>
         </div>
