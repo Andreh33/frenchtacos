@@ -24,21 +24,21 @@
   --purple-glow: var(--orange-glow);
 }
 
-/* LIGHT THEME — orange + yellow + warm whites (no red) */
+/* LIGHT THEME — orange dominates (no yellow), warm whites + dark text */
 html.theme-light {
   --ink: #FFFCF5;            /* warm off-white background */
   --cream: #1A0F08;          /* dark warm brown for text */
   --red-deep: #FFE9D6;       /* light peach wash */
-  --red: #D14A12;            /* orange-red (was punchy red, softened) */
+  --red: #D14A12;            /* orange-red */
   --orange: #D14A12;         /* deeper orange for contrast on white */
-  --orange-glow: #FF8A3D;    /* bright orange — works on white too */
-  --yellow: #FFD60A;         /* unchanged — used as accent backgrounds */
-  --yellow-warm: #E5B500;    /* darker yellow for readable text */
+  --orange-glow: #B83F00;    /* deep burnt orange for italic emphasis */
+  --yellow: #D14A12;         /* yellow REPLACED by orange in light */
+  --yellow-warm: #B83F00;    /* hover/warm version → deeper orange */
 
   --ink-rgb: 255, 252, 245;
   --cream-rgb: 26, 15, 8;
   --orange-rgb: 209, 74, 18;
-  --orange-glow-rgb: 255, 138, 61;
+  --orange-glow-rgb: 184, 63, 0;
   --red-rgb: 209, 74, 18;
 }
 
@@ -256,44 +256,16 @@ html.theme-light [data-wash="dark-radial"] {
   display: none;
 }
 
-/* Scroll-fade text (Statement + CategorySeparator) — theme-aware colors */
+/* Scroll-fade text (Statement + CategorySeparator) — theme-aware via vars */
 .scrub-cream { color: var(--cream); }
-.scrub-yellow { color: var(--yellow); }
+.scrub-yellow { color: var(--yellow); }    /* yellow in dark, orange in light (var swap) */
 .scrub-italic { color: var(--orange-glow); }
 
-/* In light theme, yellow / orange-glow text on white is unreadable.
-   Swap to readable dark/orange tones. */
-html.theme-light .scrub-yellow {
-  color: var(--orange);
-}
-html.theme-light .scrub-italic {
-  color: #B83F00; /* deep burnt orange — reads on cream-white */
-}
-
-/* PRICES — yellow with dark outline in light theme so digits stay readable */
-[data-price] {
-  /* default: no outline in dark theme */
-}
-html.theme-light [data-price] {
-  -webkit-text-stroke: 1.4px var(--cream);
-  paint-order: stroke fill;
-  /* slightly deeper yellow fill to push more contrast against stroke */
-  color: var(--yellow-warm);
-}
-
-/* Light theme — yellow text on white is unreadable → swap to deep orange.
-   Excludes: prices (have stroke), scrub-yellow (own override), and yellow-bg containers. */
-html.theme-light [class*="text-[var(--yellow)]"]:not([data-price]):not(.scrub-yellow):not([class*="bg-[var(--yellow)]"]) {
-  color: var(--orange) !important;
-}
-/* Yellow-background containers (CTAs, stickers) MUST keep dark text in both themes */
-html.theme-light [class*="bg-[var(--yellow)]"],
-html.theme-light [class*="bg-[var(--yellow)]"] * {
+/* Yellow/orange-background containers MUST keep dark text in BOTH themes
+   (in light theme --ink is white, which would be invisible on the bright bg) */
+[class*="bg-[var(--yellow)]"],
+[class*="bg-[var(--yellow)]"] * {
   color: #0A0612 !important;
-}
-/* Marquee borders should be visible in light theme — yellow on cream needs a touch more contrast */
-html.theme-light .marquee-track {
-  color: var(--orange);
 }
 
 .story-reveal {
