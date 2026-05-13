@@ -90,6 +90,16 @@ export function Cursor() {
     };
   }, []);
 
+  // Toggle native-cursor hide based on whether we're showing an emoji
+  useEffect(() => {
+    if (!mounted) return;
+    if (categoryLabel) {
+      document.documentElement.classList.add("emoji-cursor-active");
+    } else {
+      document.documentElement.classList.remove("emoji-cursor-active");
+    }
+  }, [categoryLabel, mounted]);
+
   if (!mounted) return null;
 
   const emoji = categoryLabel ? EMOJI[categoryLabel] : null;

@@ -127,7 +127,11 @@ html.lenis body {
   }
 }
 
-/* Cursor is now emoji-only when in category sections — native cursor stays visible. */
+/* Hide native cursor only when emoji cursor is active (inside a category section). */
+html.emoji-cursor-active,
+html.emoji-cursor-active * {
+  cursor: none !important;
+}
 
 /* NEON MODE — 22:00 to 06:00 */
 html.neon-mode {
