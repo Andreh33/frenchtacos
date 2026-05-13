@@ -154,7 +154,7 @@ export function Hero() {
           <span className="h-1.5 w-1.5 bg-[var(--yellow)]" />
           <span>Ciudad Real</span>
           <span className="text-[var(--cream)]/40">·</span>
-          <span>Calle Ojos del Guadiana 3</span>
+          <span>Calle Ciruela 22</span>
           <span className="text-[var(--cream)]/40">·</span>
           <span>Nº01</span>
         </motion.div>

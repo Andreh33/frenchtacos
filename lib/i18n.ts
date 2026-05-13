@@ -139,7 +139,7 @@ export const dictionaries: Record<Locale, Dict> = {
     footerManifesto: "Manifesto",
     footerQuote:
       "« Tacos urbanos, 100% franceses. Carne jugosa, patatas dentro, quesazo fundido. »",
-    footerHandmade: "Hecho con cariño en Ciudad Real. Calle Ojos del Guadiana 3.",
+    footerHandmade: "Hecho con cariño en Ciudad Real. Calle Ciruela 22.",
     footerColCarta: "Carta",
     footerColLocal: "Local",
     footerColMore: "Más",
@@ -218,7 +218,7 @@ export const dictionaries: Record<Locale, Dict> = {
     footerManifesto: "Manifeste",
     footerQuote:
       "« Tacos urbains, 100% français. Viande juteuse, frites dedans, fromage fondu. »",
-    footerHandmade: "Fait avec soin à Ciudad Real. Calle Ojos del Guadiana 3.",
+    footerHandmade: "Fait avec soin à Ciudad Real. Calle Ciruela 22.",
     footerColCarta: "Carte",
     footerColLocal: "Local",
     footerColMore: "Plus",
@@ -296,7 +296,7 @@ export const dictionaries: Record<Locale, Dict> = {
     footerManifesto: "Manifesto",
     footerQuote:
       "« Urban tacos, 100% French. Juicy meat, fries inside, melted cheese. »",
-    footerHandmade: "Made with care in Ciudad Real. Calle Ojos del Guadiana 3.",
+    footerHandmade: "Made with care in Ciudad Real. Calle Ciruela 22.",
     footerColCarta: "Menu",
     footerColLocal: "Venue",
     footerColMore: "More",

@@ -23,17 +23,17 @@ export const site = {
     instagramHandle: "@clmfrenchtacos",
   },
   location: {
-    address: "Calle Ojos del Guadiana, 3",
+    address: "Calle Ciruela, 22",
     city: "Ciudad Real",
-    region: "Ciudad Real",
-    postalCode: "13004",
+    region: "Castilla-La Mancha",
+    postalCode: "13001",
     country: "España",
-    lat: 38.9869,
-    lng: -3.9275,
+    lat: 38.9854,
+    lng: -3.9272,
     mapsUrl:
-      "https://maps.google.com/?q=Calle+Ojos+del+Guadiana+3,+13004+Ciudad+Real",
+      "https://maps.google.com/?q=Calle+Ciruela+22,+13001+Ciudad+Real",
     embedUrl:
-      "https://www.google.com/maps?q=Calle+Ojos+del+Guadiana+3,+13004+Ciudad+Real&output=embed",
+      "https://www.google.com/maps?q=Calle+Ciruela+22,+13001+Ciudad+Real&output=embed",
     hours: [
       { day: "Lunes", time: "Cerrado" },
       { day: "Mar — Jue", time: "13:00 – 16:00 · 20:00 – 00:00" },

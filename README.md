@@ -1,6 +1,6 @@
 # CLM French Tacos — sitio editorial
 
-Sitio web premium para **CLM French Tacos** (Ciudad Real, Calle Ojos del Guadiana 3).
+Sitio web premium para **CLM French Tacos** (Ciudad Real, Calle Ciruela 22).
 Next.js 16.2 + React 19.2, Tailwind v4, Framer Motion, Lenis. Sin Three.js, sin ilustraciones —
 fotografía editorial + tipografía masiva (Clash Display) + paleta disciplinada ink + amarillo.
 
