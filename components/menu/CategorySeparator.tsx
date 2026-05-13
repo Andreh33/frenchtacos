@@ -7,14 +7,16 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { useRef } from "react";
+import { AnimatedPattern, type PatternAccent } from "./AnimatedPattern";
 
 type Props = {
   number: string;
   nextTitle: string;
   nextEyebrow: string;
+  accent: PatternAccent;
 };
 
-export function CategorySeparator({ number, nextTitle, nextEyebrow }: Props) {
+export function CategorySeparator({ number, nextTitle, nextEyebrow, accent }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -32,16 +34,14 @@ export function CategorySeparator({ number, nextTitle, nextEyebrow }: Props) {
       className="relative grid min-h-[80vh] place-items-center overflow-hidden bg-[var(--ink)] py-[12vh] sm:min-h-[95vh]"
       aria-hidden
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(229,97,26,0.14),transparent_60%)]"
-      />
+      {/* Animated organic blobs pattern */}
+      <AnimatedPattern accent={accent} />
 
       <div className="relative mx-auto w-full max-w-[1800px] px-5 sm:px-10 lg:px-14">
         <div className="flex items-center gap-3">
           <span className="block h-px w-12 bg-[var(--yellow)]" />
           <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-[var(--yellow)]">
-            ↓ Siguiente · {number}
+            {number} · Categoría
           </span>
         </div>
 

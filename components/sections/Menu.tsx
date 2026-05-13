@@ -4,31 +4,29 @@ import { categories } from "@/lib/menu";
 import { site } from "@/lib/site";
 import { HorizontalCategory } from "@/components/menu/HorizontalCategory";
 import { CategorySeparator } from "@/components/menu/CategorySeparator";
+import type { PatternAccent } from "@/components/menu/AnimatedPattern";
 
 export function Menu() {
   return (
     <div id="carta">
-      {categories.map((cat, i) => {
-        const next = categories[i + 1];
-        return (
-          <div key={cat.slug}>
-            <HorizontalCategory
-              num={cat.num}
-              title={cat.title}
-              eyebrow={cat.eyebrow}
-              products={cat.products}
-              accent={cat.accent}
-            />
-            {next ? (
-              <CategorySeparator
-                number={next.num}
-                nextTitle={next.title.toUpperCase()}
-                nextEyebrow={next.eyebrow}
-              />
-            ) : null}
-          </div>
-        );
-      })}
+      {categories.map((cat) => (
+        <div key={cat.slug}>
+          {/* Separator ALWAYS appears before each category (including the first one) */}
+          <CategorySeparator
+            number={cat.num}
+            nextTitle={cat.title.toUpperCase()}
+            nextEyebrow={cat.eyebrow}
+            accent={cat.slug as PatternAccent}
+          />
+          <HorizontalCategory
+            num={cat.num}
+            title={cat.title}
+            eyebrow={cat.eyebrow}
+            products={cat.products}
+            accent={cat.accent}
+          />
+        </div>
+      ))}
 
       {/* Teaser: hay más categorías sin productos visibles aún */}
       <section className="relative bg-[var(--ink)] py-[16vh] sm:py-[22vh]">
