@@ -256,6 +256,46 @@ html.theme-light [data-wash="dark-radial"] {
   display: none;
 }
 
+/* Scroll-fade text (Statement + CategorySeparator) — theme-aware colors */
+.scrub-cream { color: var(--cream); }
+.scrub-yellow { color: var(--yellow); }
+.scrub-italic { color: var(--orange-glow); }
+
+/* In light theme, yellow / orange-glow text on white is unreadable.
+   Swap to readable dark/orange tones. */
+html.theme-light .scrub-yellow {
+  color: var(--orange);
+}
+html.theme-light .scrub-italic {
+  color: #B83F00; /* deep burnt orange — reads on cream-white */
+}
+
+/* PRICES — yellow with dark outline in light theme so digits stay readable */
+[data-price] {
+  /* default: no outline in dark theme */
+}
+html.theme-light [data-price] {
+  -webkit-text-stroke: 1.4px var(--cream);
+  paint-order: stroke fill;
+  /* slightly deeper yellow fill to push more contrast against stroke */
+  color: var(--yellow-warm);
+}
+
+/* Light theme — yellow text on white is unreadable → swap to deep orange.
+   Excludes: prices (have stroke), scrub-yellow (own override), and yellow-bg containers. */
+html.theme-light [class*="text-[var(--yellow)]"]:not([data-price]):not(.scrub-yellow):not([class*="bg-[var(--yellow)]"]) {
+  color: var(--orange) !important;
+}
+/* Yellow-background containers (CTAs, stickers) MUST keep dark text in both themes */
+html.theme-light [class*="bg-[var(--yellow)]"],
+html.theme-light [class*="bg-[var(--yellow)]"] * {
+  color: #0A0612 !important;
+}
+/* Marquee borders should be visible in light theme — yellow on cream needs a touch more contrast */
+html.theme-light .marquee-track {
+  color: var(--orange);
+}
+
 .story-reveal {
   opacity: 0;
   transform: translateY(28px);

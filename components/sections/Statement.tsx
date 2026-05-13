@@ -127,30 +127,19 @@ function ScrubWord({
   const start = Math.max(0, index / total - 0.04);
   const end = Math.min(1, index / total + 0.10);
 
-  const dim =
-    emphasize === "yellow"
-      ? "rgba(255, 214, 10, 0.18)"
-      : emphasize === "italic"
-      ? "rgba(255, 138, 61, 0.20)"
-      : "rgba(255, 248, 231, 0.18)";
+  // Animate opacity only — color comes from CSS class (theme-aware).
+  const opacity = useTransform(progress, [start, end], [0.18, 1]);
 
-  const bright =
-    emphasize === "yellow"
-      ? "rgba(255, 214, 10, 1)"
-      : emphasize === "italic"
-      ? "rgba(255, 138, 61, 1)"
-      : "rgba(255, 248, 231, 1)";
-
-  const color = useTransform(progress, [start, end], [dim, bright]);
+  const colorClass =
+    emphasize === "italic"
+      ? "italic-editorial scrub-italic"
+      : emphasize === "yellow"
+      ? "scrub-yellow"
+      : "scrub-cream";
 
   return (
     <>
-      <motion.span
-        style={{ color }}
-        className={`inline-block transition-[filter] ${
-          emphasize === "italic" ? "italic-editorial" : ""
-        }`}
-      >
+      <motion.span style={{ opacity }} className={`inline-block ${colorClass}`}>
         {children}
       </motion.span>
       <span aria-hidden> </span>

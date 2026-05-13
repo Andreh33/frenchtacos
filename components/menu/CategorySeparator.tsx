@@ -102,12 +102,8 @@ function ScrubLetter({
 
   return (
     <motion.span
-      style={{
-        opacity,
-        y,
-        color: highlight ? "var(--yellow)" : undefined,
-        display: "inline-block",
-      }}
+      style={{ opacity, y, display: "inline-block" }}
+      className={highlight ? "scrub-yellow" : undefined}
     >
       {children}
     </motion.span>

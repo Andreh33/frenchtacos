@@ -386,6 +386,7 @@ function PriceTag({
         Precio
       </span>
       <div
+        data-price
         className={`mt-1 flex items-start font-display font-bold tracking-[-0.06em] text-[var(--yellow)]`}
         style={{ lineHeight: 0.84 }}
       >
