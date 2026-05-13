@@ -4,21 +4,32 @@ import { useEffect, useRef, useState } from "react";
 import { CursorCategoryIcon } from "./CursorCategoryIcon";
 
 export function Cursor() {
-  const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const [label, setLabel] = useState<string | null>(null);
   const [active, setActive] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [categoryLabel, setCategoryLabel] = useState<string | null>(null);
 
+  // Show the fancy cursor only when there's something to display
+  const hasContent = !!(label || categoryLabel);
+
+  // Toggle cursor-hide on <html> based on hasContent
+  useEffect(() => {
+    if (!mounted) return;
+    if (hasContent) {
+      document.documentElement.classList.add("cursor-active");
+    } else {
+      document.documentElement.classList.remove("cursor-active");
+    }
+  }, [hasContent, mounted]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
-    if (isTouch) return; // cursor stays as native on touch
+    if (isTouch) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     setMounted(true);
-    document.documentElement.classList.add("cursor-active");
 
     let mx = window.innerWidth / 2;
     let my = window.innerHeight / 2;
@@ -29,25 +40,22 @@ export function Cursor() {
     const onMove = (e: MouseEvent) => {
       mx = e.clientX;
       my = e.clientY;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mx - 4}px, ${my - 4}px, 0)`;
-      }
-      // With reduced-motion: skip the lerp, snap ring to cursor immediately
+      // With reduced-motion: snap ring to cursor immediately
       if (reduce) {
         rx = mx;
         ry = my;
         if (ringRef.current) {
-          ringRef.current.style.transform = `translate3d(${rx - 28}px, ${ry - 28}px, 0)`;
+          ringRef.current.style.transform = `translate3d(${rx - 40}px, ${ry - 40}px, 0)`;
         }
       }
     };
 
     const tick = () => {
       if (!reduce) {
-        rx += (mx - rx) * 0.18;
-        ry += (my - ry) * 0.18;
+        rx += (mx - rx) * 0.22;
+        ry += (my - ry) * 0.22;
         if (ringRef.current) {
-          ringRef.current.style.transform = `translate3d(${rx - 28}px, ${ry - 28}px, 0)`;
+          ringRef.current.style.transform = `translate3d(${rx - 40}px, ${ry - 40}px, 0)`;
         }
       }
       raf = requestAnimationFrame(tick);
@@ -83,9 +91,7 @@ export function Cursor() {
     document.addEventListener("mouseover", onOver);
     document.addEventListener("mouseleave", onLeave);
 
-    // Check which [data-category-label] section's middle is at viewport center.
-    // We can't use IntersectionObserver thresholds because the sections are
-    // taller than viewport (md:h-[400-600vh]) so intersectionRatio max is < 0.25.
+    // Scroll-position check for which category section is at viewport center
     let scrollRaf = 0;
     const sections = () =>
       Array.from(document.querySelectorAll<HTMLElement>("[data-category-label]"));
@@ -111,24 +117,6 @@ export function Cursor() {
     checkCategory();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // Debug helper
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const w = window as any;
-    w.__clm = w.__clm || {};
-    w.__clm.cursor = () => ({
-      mounted: true,
-      sectionsFound: sections().length,
-      currentCategory: () => {
-        const cy = window.innerHeight / 2;
-        return sections()
-          .find((s) => {
-            const r = s.getBoundingClientRect();
-            return r.top <= cy && r.bottom >= cy;
-          })
-          ?.getAttribute("data-category-label");
-      },
-    });
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       if (scrollRaf) cancelAnimationFrame(scrollRaf);
@@ -143,52 +131,40 @@ export function Cursor() {
   if (!mounted) return null;
 
   return (
-    <>
+    <div
+      ref={ringRef}
+      aria-hidden
+      className="pointer-events-none fixed top-0 left-0 z-[9998] hidden md:block"
+      style={{ willChange: "transform" }}
+    >
       <div
-        ref={dotRef}
-        aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[9998] hidden md:block"
-        style={{ willChange: "transform" }}
+        className={`relative grid h-20 w-20 place-items-center rounded-full border-2 transition-all duration-300 ease-out ${
+          hasContent
+            ? "border-[var(--yellow)] bg-[var(--yellow)]/15 opacity-100 scale-100"
+            : "border-[var(--yellow)]/0 opacity-0 scale-50"
+        }`}
       >
-        <div className="h-2 w-2 rounded-full bg-[var(--yellow)]" />
-      </div>
-      <div
-        ref={ringRef}
-        aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[9998] hidden md:block"
-        style={{ willChange: "transform" }}
-      >
-        <div
-          className={`relative grid place-items-center rounded-full border transition-[width,height,background] duration-200 ease-out ${
-            active
-              ? "h-14 w-14 border-[var(--yellow)] bg-[var(--yellow)]/15"
-              : categoryLabel
-              ? "h-14 w-14 border-[var(--yellow)] bg-[var(--yellow)]/20"
-              : "h-14 w-14 border-[var(--yellow)]/35"
-          }`}
-        >
-          {label ? (
-            <span className="font-mono text-[10px] font-bold tracking-[0.25em] text-[var(--yellow)] uppercase">
-              {label}
-            </span>
-          ) : categoryLabel ? (
-            <CursorCategoryIcon
-              category={categoryLabel}
-              className="h-7 w-7 text-[var(--yellow)]"
-            />
-          ) : null}
+        {label ? (
+          <span className="px-2 text-center font-mono text-[11px] font-bold tracking-[0.2em] leading-tight text-[var(--yellow)] uppercase">
+            {label}
+          </span>
+        ) : categoryLabel ? (
+          <CursorCategoryIcon
+            category={categoryLabel}
+            className="h-12 w-12 text-[var(--yellow)]"
+          />
+        ) : null}
 
-          {/* Category chip below — always visible when in a category section */}
-          {categoryLabel ? (
-            <span
-              className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[var(--yellow)] px-2 py-0.5 font-mono text-[9px] font-bold tracking-[0.25em] text-[var(--ink)] uppercase"
-              style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.35)" }}
-            >
-              {categoryLabel}
-            </span>
-          ) : null}
-        </div>
+        {/* Category chip below — visible when in a category section */}
+        {categoryLabel ? (
+          <span
+            className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[var(--yellow)] px-2 py-0.5 font-mono text-[9px] font-bold tracking-[0.25em] text-[var(--ink)] uppercase"
+            style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.35)" }}
+          >
+            {categoryLabel}
+          </span>
+        ) : null}
       </div>
-    </>
+    </div>
   );
 }
