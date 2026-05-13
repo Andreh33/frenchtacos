@@ -13,6 +13,7 @@ import { ServiceWorker } from "@/components/system/ServiceWorker";
 import { InstallPrompt } from "@/components/system/InstallPrompt";
 import { LocaleProvider } from "@/components/system/LocaleProvider";
 import { GeoAware } from "@/components/system/GeoAware";
+import { ThemeProvider } from "@/components/system/ThemeProvider";
 import { RestaurantJsonLd } from "@/components/system/RestaurantJsonLd";
 
 const siteUrl = "https://frenchtacos.es";
@@ -79,6 +80,7 @@ export default function RootLayout({
         >
           Saltar al contenido
         </a>
+        <ThemeProvider>
         <LocaleProvider>
         <SoundProvider>
           <Loader />
@@ -97,6 +99,7 @@ export default function RootLayout({
           <RestaurantJsonLd />
         </SoundProvider>
         </LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

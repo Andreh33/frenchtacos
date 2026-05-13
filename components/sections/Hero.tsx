@@ -98,6 +98,7 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
+      data-keep-dark
       className="relative isolate flex w-full flex-col overflow-hidden"
       style={{ minHeight: "100svh", height: "100svh" }}
     >

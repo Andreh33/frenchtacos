@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn";
 import { Magnetic } from "@/components/system/Magnetic";
 import { LocaleSwitcher } from "@/components/system/LocaleSwitcher";
 import { useLocale } from "@/components/system/LocaleProvider";
+import { ThemeToggle } from "@/components/system/ThemeToggle";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -115,14 +116,16 @@ export function Header() {
             })}
           </nav>
 
-          {/* LANG SWITCHER */}
+          {/* LANG SWITCHER + THEME TOGGLE */}
           <motion.div
             initial={{ x: 40, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.55, delay: 0.5, ease: [0.65, 0, 0.35, 1] }}
-            className="hidden sm:flex"
+            className="hidden items-center gap-2 sm:flex"
           >
             <LocaleSwitcher />
+            <span className="block h-4 w-px bg-[var(--cream)]/15" aria-hidden />
+            <ThemeToggle />
           </motion.div>
 
           {/* CTA (right entry from right) */}
@@ -212,6 +215,16 @@ export function Header() {
               >
                 Pide ya →
               </motion.a>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="mt-10 flex items-center justify-between border-t border-[var(--cream)]/10 pt-5"
+              >
+                <LocaleSwitcher />
+                <ThemeToggle />
+              </motion.div>
             </nav>
           </motion.div>
         )}

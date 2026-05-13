@@ -36,6 +36,7 @@ export function Loader() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
+          data-keep-dark
           className="fixed inset-0 z-[10000] grid place-items-center overflow-hidden bg-[var(--ink)]"
         >
           {/* radial purple wash */}

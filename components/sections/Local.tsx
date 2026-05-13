@@ -143,6 +143,7 @@ export function Local() {
             </span>
           </div>
           <div
+            data-map
             className="relative aspect-[16/9] w-full overflow-hidden border border-[var(--cream)]/10 sm:aspect-[21/9]"
             style={{ filter: "invert(0.92) hue-rotate(200deg) saturate(0.9) brightness(0.95)" }}
           >

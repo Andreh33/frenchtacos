@@ -1,20 +1,45 @@
 @import "tailwindcss";
 
 :root {
+  /* DARK THEME (default) — brand fire palette */
   --ink: #0A0612;
-  /* Brand fire palette — yellow → orange → red */
-  --red-deep: #3D0F0A;       /* deep burgundy, for subtle washes */
-  --red: #C71F1F;            /* punchy red, accent */
-  --orange: #E5611A;         /* mid warm orange */
-  --orange-glow: #FF8A3D;    /* bright orange, editorial italic emphasis */
-  --yellow: #FFD60A;         /* critical accent */
-  --yellow-warm: #FFC300;    /* yellow hover */
-  --cream: #FFF8E7;          /* text on dark */
+  --red-deep: #3D0F0A;
+  --red: #C71F1F;
+  --orange: #E5611A;
+  --orange-glow: #FF8A3D;
+  --yellow: #FFD60A;
+  --yellow-warm: #FFC300;
+  --cream: #FFF8E7;
 
-  /* Backwards-compat aliases (keeps any straggler purple-* refs alive) */
+  /* Tinted-wash RGB triplets (used in rgba()) */
+  --ink-rgb: 10, 6, 18;
+  --cream-rgb: 255, 248, 231;
+  --orange-rgb: 229, 97, 26;
+  --orange-glow-rgb: 255, 138, 61;
+  --red-rgb: 199, 31, 31;
+
+  /* Backwards-compat aliases */
   --purple-deep: var(--red-deep);
   --purple: var(--orange);
   --purple-glow: var(--orange-glow);
+}
+
+/* LIGHT THEME — orange + yellow + warm whites (no red) */
+html.theme-light {
+  --ink: #FFFCF5;            /* warm off-white background */
+  --cream: #1A0F08;          /* dark warm brown for text */
+  --red-deep: #FFE9D6;       /* light peach wash */
+  --red: #D14A12;            /* orange-red (was punchy red, softened) */
+  --orange: #D14A12;         /* deeper orange for contrast on white */
+  --orange-glow: #FF8A3D;    /* bright orange — works on white too */
+  --yellow: #FFD60A;         /* unchanged — used as accent backgrounds */
+  --yellow-warm: #E5B500;    /* darker yellow for readable text */
+
+  --ink-rgb: 255, 252, 245;
+  --cream-rgb: 26, 15, 8;
+  --orange-rgb: 209, 74, 18;
+  --orange-glow-rgb: 255, 138, 61;
+  --red-rgb: 209, 74, 18;
 }
 
 @theme inline {
@@ -40,6 +65,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 body {
@@ -48,6 +74,7 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   font-feature-settings: "ss01", "cv11";
   overflow-x: clip;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 ::selection {
@@ -165,6 +192,69 @@ html.neon-mode .btn-fill {
 }
 .neon-only { display: none; }
 html.neon-mode .neon-only { display: inline-flex; }
+
+/* Disable neon glow effects in light theme (incoherent visually) */
+html.theme-light.neon-mode body { box-shadow: none; }
+html.theme-light.neon-mode .marquee-track { text-shadow: none; }
+html.theme-light.neon-mode [data-cursor]:hover,
+html.theme-light.neon-mode a:hover,
+html.theme-light.neon-mode button:hover { filter: none; }
+html.theme-light.neon-mode .btn-fill { box-shadow: none; }
+
+/* LIGHT THEME — specific tweaks */
+html.theme-light .grain::after {
+  opacity: 0.03; /* lower grain on white */
+  mix-blend-mode: multiply;
+}
+html.theme-light body {
+  /* Subtle paper grain feel */
+  background-image: radial-gradient(
+    rgba(0, 0, 0, 0.015) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+/* Hero scroll-darkening overlay → in light mode it's a cream wash */
+html.theme-light [data-hero-overlay] {
+  background: var(--ink) !important;
+}
+/* btn-fill ::before — yellow hover fill stays yellow in both themes */
+/* Marquee borders need to be visible in light */
+html.theme-light [data-marquee] {
+  border-color: var(--orange);
+}
+/* selection */
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+html.theme-light ::selection {
+  background: var(--orange);
+  color: var(--ink);
+}
+
+/* Sections that ALWAYS stay dark (video hero + loader) — keep brand cinematic feel */
+html.theme-light [data-keep-dark] {
+  --ink: #0A0612;
+  --cream: #FFF8E7;
+  --red-deep: #3D0F0A;
+  --red: #C71F1F;
+  --orange: #E5611A;
+  --orange-glow: #FF8A3D;
+  --yellow-warm: #FFC300;
+  background-color: #0A0612;
+  color: #FFF8E7;
+}
+
+/* Map in light mode → remove invert filter so it shows normal Google Maps */
+html.theme-light [data-map] {
+  filter: none !important;
+}
+
+/* Light theme — make sure radial washes that were dark are now lighter */
+html.theme-light [data-wash="dark-radial"] {
+  display: none;
+}
 
 .story-reveal {
   opacity: 0;
