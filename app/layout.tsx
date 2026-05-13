@@ -12,6 +12,7 @@ import { WarpFilter } from "@/components/system/WarpFilter";
 import { ServiceWorker } from "@/components/system/ServiceWorker";
 import { InstallPrompt } from "@/components/system/InstallPrompt";
 import { LocaleProvider } from "@/components/system/LocaleProvider";
+import { DebugPanel } from "@/components/system/DebugPanel";
 import { RestaurantJsonLd } from "@/components/system/RestaurantJsonLd";
 
 const siteUrl = "https://frenchtacos.es";
@@ -89,6 +90,7 @@ export default function RootLayout({
           <WarpFilter />
           <ServiceWorker />
           <InstallPrompt />
+          <DebugPanel />
           <main id="main" className="flex-1">
             {children}
           </main>

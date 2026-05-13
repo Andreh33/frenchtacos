@@ -40,6 +40,10 @@ export function KonamiMode() {
   }, [active]);
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any;
+    w.__clmKonamiProgress = 0;
+
     const onKey = (e: KeyboardEvent) => {
       if (activeRef.current) return;
       if (e.repeat) return;
@@ -48,29 +52,34 @@ export function KonamiMode() {
       const expected = SEQUENCE[progress.current];
 
       if (key === expected) {
-        // Stop default scroll for arrows during the build-up
         if (key.startsWith("Arrow")) e.preventDefault();
         progress.current += 1;
+        w.__clmKonamiProgress = progress.current;
         if (progress.current === SEQUENCE.length) {
           progress.current = 0;
+          w.__clmKonamiProgress = 0;
           trigger();
         }
       } else if (key === SEQUENCE[0]) {
-        // Wrong key but matches start — restart at index 1
         progress.current = 1;
+        w.__clmKonamiProgress = 1;
       } else {
-        // Total reset
         progress.current = 0;
+        w.__clmKonamiProgress = 0;
       }
     };
-    document.addEventListener("keydown", onKey);
-    // Debug helper — type __clm.party() in console to force activate
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const w = window as any;
+    // Bind on BOTH window and document with capture to maximize reliability
+    window.addEventListener("keydown", onKey, true);
+    document.addEventListener("keydown", onKey, true);
+
     w.__clm = w.__clm || {};
     w.__clm.party = trigger;
     w.__clm.konami = "ready · ↑↑↓↓←→←→BA";
-    return () => document.removeEventListener("keydown", onKey);
+
+    return () => {
+      window.removeEventListener("keydown", onKey, true);
+      document.removeEventListener("keydown", onKey, true);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
