@@ -8,7 +8,7 @@ export function Loader() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (sessionStorage.getItem("uft_loaded") === "1") {
+    if (sessionStorage.getItem("clm_loaded") === "1") {
       setVisible(false);
       return;
     }
@@ -28,7 +28,7 @@ export function Loader() {
         setProgress(1);
         window.setTimeout(() => {
           setVisible(false);
-          sessionStorage.setItem("uft_loaded", "1");
+          sessionStorage.setItem("clm_loaded", "1");
         }, 250);
       } else {
         raf = requestAnimationFrame(tick);
@@ -51,7 +51,7 @@ export function Loader() {
           className="font-display font-bold leading-[0.9] tracking-[-0.04em] text-[var(--cream)]"
           style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}
         >
-          URBAN <span className="text-[var(--yellow)]">FRENCH</span> TAKOS
+          CLM <span className="text-[var(--yellow)]">FRENCH</span> TACOS
         </div>
         <div className="relative h-px w-full overflow-hidden bg-[var(--cream)]/15">
           <div

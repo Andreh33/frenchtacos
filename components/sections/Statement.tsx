@@ -95,7 +95,7 @@ export function Statement() {
           <div className="mt-16 flex items-center justify-end gap-3 sm:mt-24">
             <span className="block h-px w-12 bg-[var(--cream)]/40" />
             <span className="font-mono text-[11px] tracking-[0.3em] uppercase text-[var(--cream)]/65">
-              — Urban French Takos
+              — CLM French Tacos
             </span>
           </div>
         </div>

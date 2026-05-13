@@ -12,7 +12,7 @@ export default function StyleguidePage() {
       <div className="sticky top-0 z-50 border-b border-[var(--cream)]/10 bg-[var(--ink)]/85 backdrop-blur-md">
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-4 lg:px-12">
           <span className="font-mono text-[11px] tracking-[0.3em] uppercase text-[var(--yellow)]">
-            UFT / Styleguide
+            CLM / Styleguide
           </span>
           <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[var(--cream)]/60">
             v2 · checkpoint 01
@@ -56,7 +56,7 @@ export default function StyleguidePage() {
                 style={{ fontSize: "clamp(2.5rem, 7vw, 7rem)", lineHeight: 0.9 }}
               >
                 Empezamos en Lyon. Crecimos en{" "}
-                <span className="italic-editorial text-[var(--yellow)]">Valdepeñas.</span>
+                <span className="italic-editorial text-[var(--yellow)]">Ciudad Real.</span>
               </h2>
             </div>
 
@@ -73,9 +73,9 @@ export default function StyleguidePage() {
             <div className="max-w-2xl">
               <Tag>Body · General Sans 400 · 17px · leading 1.55</Tag>
               <p className="mt-3 text-[17px] leading-[1.55] tracking-[-0.005em] text-[var(--cream)]/85">
-                Street food francés con alma manchega. El french tako no es un producto: es una
-                forma de comer la calle. Empezamos en Lyon, crecimos en Valdepeñas, y hoy lo
-                servimos como lo entendemos: caliente, generoso, y sin pretensiones.
+                Tacos urbanos, 100% franceses. Carne jugosa, patatas dentro, quesazo fundido y
+                tus salsas favoritas. Un solo bocado y entiendes por qué es tendencia en toda
+                Europa. Servimos en Ciudad Real, recién sacado de la plancha.
               </p>
             </div>
 
@@ -83,7 +83,7 @@ export default function StyleguidePage() {
               <div>
                 <Tag>Mono · JetBrains Mono · 12px · tracking 0.25em</Tag>
                 <p className="mt-3 font-mono text-xs tracking-[0.25em] uppercase text-[var(--yellow)]">
-                  Nº01 · Valdepeñas · Abierto hasta 00:00
+                  Nº01 · Ciudad Real · Abierto hasta 00:00
                 </p>
               </div>
               <div>
@@ -139,13 +139,13 @@ export default function StyleguidePage() {
               / 01 — Carta editorial
             </span>
             <span className="border border-[var(--yellow)]/40 bg-[var(--yellow)]/5 px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--yellow)]">
-              Edición Valdepeñas
+              Edición Ciudad Real
             </span>
             <span className="bg-[var(--yellow)] px-3 py-1.5 font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--ink)]">
               Oferta · Nº01
             </span>
             <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--cream)]/60">
-              Nº01 · Valdepeñas
+              Nº01 · Ciudad Real
             </span>
           </div>
         </Section>
@@ -159,8 +159,8 @@ export default function StyleguidePage() {
                   "ABIERTO HASTA LAS 00:00",
                   "MARTES 2×1",
                   "NUEVO SABOR",
-                  "SÍGUENOS @URBAN_FRENCH_TAKOS",
-                  "NÚMERO UNO EN VALDEPEÑAS",
+                  "SÍGUENOS @CLMFRENCHTACOS",
+                  "Nº01 · CIUDAD REAL",
                 ].map((t, i) => (
                   <span
                     key={`${k}-${i}`}
