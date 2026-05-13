@@ -19,7 +19,7 @@ export function Local() {
             style={{ fontSize: "clamp(2.5rem, 7vw, 7rem)", lineHeight: 0.9 }}
           >
             Una calle.<br />
-            Una plancha. <span className="italic-editorial text-[var(--purple-glow)]">CLM.</span>
+            Una plancha. <span className="italic-editorial text-[var(--orange-glow)]">CLM.</span>
           </h2>
         </div>
 

@@ -41,7 +41,7 @@ export function Loader() {
           {/* radial purple wash */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(107,47,179,0.15),transparent_60%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(229,97,26,0.15),transparent_60%)]"
           />
 
           <div className="relative flex flex-col items-center px-6">

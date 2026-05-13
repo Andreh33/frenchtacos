@@ -19,7 +19,7 @@ export default function StoryPage() {
       <section className="relative overflow-hidden bg-[var(--ink)] pt-40 pb-[14vh] sm:pt-48 sm:pb-[20vh]">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_30%,rgba(107,47,179,0.18),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_30%,rgba(199,31,31,0.16),transparent_60%)]"
         />
         <div className="mx-auto max-w-[1500px] px-5 sm:px-10 lg:px-14">
           <div className="flex items-center gap-3">
@@ -32,7 +32,7 @@ export default function StoryPage() {
             className="mt-8 max-w-[1300px] font-display font-bold tracking-[-0.045em] text-[var(--cream)]"
             style={{ fontSize: "clamp(2.8rem, 9vw, 9rem)", lineHeight: 0.9 }}
           >
-            Cómo un tacos francés acabó <span className="italic-editorial text-[var(--purple-glow)]">en Ciudad Real.</span>
+            Cómo un tacos francés acabó <span className="italic-editorial text-[var(--orange-glow)]">en Ciudad Real.</span>
           </h1>
           <p className="mt-10 max-w-xl text-[15px] leading-[1.6] text-[var(--cream)]/75 sm:text-[17px]">
             No es una receta robada. Tampoco una fusión forzada. Es lo que pasa
@@ -92,7 +92,7 @@ export default function StoryPage() {
       <section className="relative bg-[var(--ink)] py-[14vh] sm:py-[22vh]">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_70%_50%,rgba(168,85,247,0.18),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_70%_50%,rgba(255,138,61,0.20),transparent_60%)]"
         />
         <div className="mx-auto max-w-[1300px] px-5 sm:px-10 lg:px-14">
           <StoryReveal>

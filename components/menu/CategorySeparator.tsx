@@ -34,7 +34,7 @@ export function CategorySeparator({ number, nextTitle, nextEyebrow }: Props) {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(107,47,179,0.14),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(229,97,26,0.14),transparent_60%)]"
       />
 
       <div className="relative mx-auto w-full max-w-[1800px] px-5 sm:px-10 lg:px-14">
@@ -76,7 +76,7 @@ export function CategorySeparator({ number, nextTitle, nextEyebrow }: Props) {
 
         <div className="mt-10 flex items-end justify-end gap-3 sm:mt-14">
           <span className="block h-px w-12 bg-[var(--cream)]/40" />
-          <span className="italic-editorial text-xl text-[var(--purple-glow)] sm:text-3xl">
+          <span className="italic-editorial text-xl text-[var(--orange-glow)] sm:text-3xl">
             {nextEyebrow}.
           </span>
         </div>

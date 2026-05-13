@@ -30,14 +30,18 @@ type Props = {
 };
 
 const ACCENT_WASH: Record<CategoryAccent, string> = {
+  // Tacos — cobre + rojo profundo
   copper:
-    "radial-gradient(ellipse at 75% 25%, rgba(196, 87, 38, 0.18), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(107, 47, 179, 0.12), transparent 60%)",
+    "radial-gradient(ellipse at 75% 25%, rgba(196, 87, 38, 0.18), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(199, 31, 31, 0.14), transparent 60%)",
+  // Burgers — naranja + rojo
   amber:
-    "radial-gradient(ellipse at 75% 25%, rgba(255, 165, 38, 0.14), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(180, 80, 30, 0.16), transparent 60%)",
+    "radial-gradient(ellipse at 75% 25%, rgba(255, 165, 38, 0.16), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(199, 31, 31, 0.14), transparent 60%)",
+  // Bowls — verde oliva (mantengo neutralidad), suave naranja
   olive:
-    "radial-gradient(ellipse at 75% 25%, rgba(120, 158, 75, 0.16), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(54, 90, 45, 0.18), transparent 60%)",
+    "radial-gradient(ellipse at 75% 25%, rgba(120, 158, 75, 0.16), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(229, 97, 26, 0.10), transparent 60%)",
+  // Ensaladas — crema cálida + naranja luminosa
   cream:
-    "radial-gradient(ellipse at 75% 25%, rgba(255, 220, 145, 0.10), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(168, 85, 247, 0.10), transparent 60%)",
+    "radial-gradient(ellipse at 75% 25%, rgba(255, 220, 145, 0.12), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(255, 138, 61, 0.10), transparent 60%)",
 };
 
 export function HorizontalCategory({ num, title, eyebrow, products, accent }: Props) {

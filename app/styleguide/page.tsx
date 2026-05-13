@@ -25,9 +25,10 @@ export default function StyleguidePage() {
         <Section number="01" title="Paleta" hint="Fondo dominante = ink. Yellow ≤10%, purple ≤30%.">
           <div className="grid grid-cols-2 gap-px bg-[var(--cream)]/10 md:grid-cols-4 lg:grid-cols-7">
             <Swatch name="ink" hex="#0A0612" bg="bg-[var(--ink)]" textOnDark />
-            <Swatch name="purple-deep" hex="#2A0F3D" bg="bg-[var(--purple-deep)]" textOnDark />
-            <Swatch name="purple" hex="#6B2FB3" bg="bg-[var(--purple)]" textOnDark />
-            <Swatch name="purple-glow" hex="#A855F7" bg="bg-[var(--purple-glow)]" textOnDark />
+            <Swatch name="red-deep" hex="#3D0F0A" bg="bg-[var(--red-deep)]" textOnDark />
+            <Swatch name="red" hex="#C71F1F" bg="bg-[var(--red)]" textOnDark />
+            <Swatch name="orange" hex="#E5611A" bg="bg-[var(--orange)]" textOnDark />
+            <Swatch name="orange-glow" hex="#FF8A3D" bg="bg-[var(--orange-glow)]" textOnDark />
             <Swatch name="yellow" hex="#FFD60A" bg="bg-[var(--yellow)]" />
             <Swatch name="yellow-warm" hex="#FFC300" bg="bg-[var(--yellow-warm)]" />
             <Swatch name="cream" hex="#FFF8E7" bg="bg-[var(--cream)]" />
@@ -45,7 +46,7 @@ export default function StyleguidePage() {
               >
                 FRENCH <span className="text-[var(--yellow)]">TAKOS</span>
                 <br />
-                DE LA <span className="italic-editorial text-[var(--purple-glow)]">calle.</span>
+                DE LA <span className="italic-editorial text-[var(--orange-glow)]">calle.</span>
               </h1>
             </div>
 
@@ -88,7 +89,7 @@ export default function StyleguidePage() {
               </div>
               <div>
                 <Tag>Italic editorial · Playfair · 32px</Tag>
-                <p className="italic-editorial mt-3 text-3xl text-[var(--purple-glow)]">
+                <p className="italic-editorial mt-3 text-3xl text-[var(--orange-glow)]">
                   « comer la calle »
                 </p>
               </div>
@@ -203,7 +204,7 @@ export default function StyleguidePage() {
                 style={{ fontSize: "clamp(2rem, 4vw, 4rem)", lineHeight: 0.95 }}
               >
                 Le Manchego.{" "}
-                <span className="italic-editorial text-[var(--purple-glow)]">Lyon × La Mancha.</span>
+                <span className="italic-editorial text-[var(--orange-glow)]">Lyon × La Mancha.</span>
               </h3>
               <p className="mt-6 max-w-md text-[17px] leading-[1.55] text-[var(--cream)]/80">
                 Chorizo, queso manchego curado, alioli ahumado, jalapeño. Salsa picante de la casa.
@@ -237,12 +238,12 @@ export default function StyleguidePage() {
             </div>
           </div>
           <div className="mt-1 grid grid-cols-12 gap-1">
-            <div className="col-span-4 h-16 bg-[var(--purple-deep)] grid place-items-center">
+            <div className="col-span-4 h-16 bg-[var(--red-deep)] grid place-items-center">
               <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--cream)]/80">
                 Purple-deep ~18%
               </span>
             </div>
-            <div className="col-span-3 h-16 bg-[var(--purple)] grid place-items-center">
+            <div className="col-span-3 h-16 bg-[var(--orange)] grid place-items-center">
               <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--cream)]">
                 Purple ~10%
               </span>

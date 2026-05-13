@@ -52,7 +52,7 @@ export function Statement() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_50%,rgba(107,47,179,0.18),transparent_55%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_50%,rgba(229,97,26,0.16),transparent_55%)]"
       />
 
       <div className="mx-auto max-w-[1800px] px-5 sm:px-10 lg:px-14">
@@ -131,14 +131,14 @@ function ScrubWord({
     emphasize === "yellow"
       ? "rgba(255, 214, 10, 0.18)"
       : emphasize === "italic"
-      ? "rgba(168, 85, 247, 0.18)"
+      ? "rgba(255, 138, 61, 0.20)"
       : "rgba(255, 248, 231, 0.18)";
 
   const bright =
     emphasize === "yellow"
       ? "rgba(255, 214, 10, 1)"
       : emphasize === "italic"
-      ? "rgba(168, 85, 247, 1)"
+      ? "rgba(255, 138, 61, 1)"
       : "rgba(255, 248, 231, 1)";
 
   const color = useTransform(progress, [start, end], [dim, bright]);

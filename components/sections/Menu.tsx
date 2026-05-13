@@ -43,9 +43,9 @@ export function Menu() {
             className="mt-6 max-w-4xl font-display font-bold tracking-[-0.04em] text-[var(--cream)]"
             style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)", lineHeight: 0.95 }}
           >
-            También hay <span className="italic-editorial text-[var(--purple-glow)]">Sándwiches</span>,{" "}
-            <span className="italic-editorial text-[var(--purple-glow)]">Nuggets & Tenders</span>,{" "}
-            Patatas y <span className="italic-editorial text-[var(--purple-glow)]">Menú Kids</span>.
+            También hay <span className="italic-editorial text-[var(--orange-glow)]">Sándwiches</span>,{" "}
+            <span className="italic-editorial text-[var(--orange-glow)]">Nuggets & Tenders</span>,{" "}
+            Patatas y <span className="italic-editorial text-[var(--orange-glow)]">Menú Kids</span>.
           </h3>
           <p className="mt-6 max-w-md text-[15px] leading-[1.55] text-[var(--cream)]/70 sm:text-[17px]">
             La carta completa está en la web oficial — actualizada al día y con todas las variantes.

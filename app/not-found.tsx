@@ -12,7 +12,7 @@ export default function NotFound() {
       {/* radial purple wash */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,rgba(107,47,179,0.16),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,rgba(199,31,31,0.18),transparent_60%)]"
       />
 
       {/* burnt yellow stripe */}
