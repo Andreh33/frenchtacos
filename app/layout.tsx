@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s · CLM French Tacos",
   },
   description:
-    "Carne jugosa, patatas fritas dentro, quesazo fundido. El auténtico tacos francés, en Calle Ciruela 22, Ciudad Real. Pide ya por Glovo.",
+    "Carne jugosa, patatas fritas dentro, quesazo fundido. El auténtico tacos francés, en Calle Ciruela 28, Ciudad Real. Pide ya por Glovo.",
   applicationName: "CLM French Tacos",
   alternates: { canonical: "/" },
   openGraph: {

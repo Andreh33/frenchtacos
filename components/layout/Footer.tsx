@@ -31,7 +31,7 @@ export function Footer() {
               «&nbsp;Tacos urbanos, 100% franceses. Carne jugosa, patatas dentro, quesazo fundido.&nbsp;»
             </p>
             <p className="mt-6 max-w-xs text-sm leading-[1.55] text-[var(--cream)]/55">
-              Hecho con cariño en Ciudad Real. Calle Ciruela 22.
+              Hecho con cariño en Ciudad Real. Calle Ciruela 28.
             </p>
           </div>
 

@@ -137,12 +137,6 @@ export function Hero() {
         style={{ opacity: overlayOpacity }}
       />
 
-      {/* PURPLE TINT */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 mix-blend-color opacity-25 bg-[radial-gradient(ellipse_at_70%_30%,rgba(168,85,247,0.5),transparent_60%),radial-gradient(ellipse_at_20%_80%,rgba(107,47,179,0.6),transparent_55%)]"
-      />
-
       {/* TOP TAG ROW — under header */}
       <div className="relative z-10 flex items-start justify-between px-5 pt-20 sm:px-8 sm:pt-24 lg:px-12">
         <motion.div
@@ -154,7 +148,7 @@ export function Hero() {
           <span className="h-1.5 w-1.5 bg-[var(--yellow)]" />
           <span>Ciudad Real</span>
           <span className="text-[var(--cream)]/40">·</span>
-          <span>Calle Ciruela 22</span>
+          <span>Calle Ciruela 28</span>
           <span className="text-[var(--cream)]/40">·</span>
           <span>Nº01</span>
         </motion.div>

@@ -85,7 +85,7 @@ export default function StoryPage() {
         num="04"
         title="¿Por qué Ciudad Real?"
         copy={`Porque aquí la noche es larga, los precios son honestos y la gente no necesita que le expliques qué llevas dentro de la plancha. Le das de comer bien y vuelve. Le das una excusa para presumirlo en Instagram y vuelve con sus amigos.`}
-        side={`Calle Ciruela, 22. No hay segunda planta. No hay terraza. Hay una barra, una plancha, y una carta corta hecha bien.`}
+        side={`Calle Ciruela, 28. No hay segunda planta. No hay terraza. Hay una barra, una plancha, y una carta corta hecha bien.`}
       />
 
       {/* SIGNATURE QUOTE */}

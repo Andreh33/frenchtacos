@@ -23,7 +23,7 @@ export const site = {
     instagramHandle: "@clmfrenchtacos",
   },
   location: {
-    address: "Calle Ciruela, 22",
+    address: "Calle Ciruela, 28",
     city: "Ciudad Real",
     region: "Castilla-La Mancha",
     postalCode: "13001",
@@ -31,9 +31,9 @@ export const site = {
     lat: 38.9854,
     lng: -3.9272,
     mapsUrl:
-      "https://maps.google.com/?q=Calle+Ciruela+22,+13001+Ciudad+Real",
+      "https://maps.google.com/?q=Calle+Ciruela+28,+13001+Ciudad+Real",
     embedUrl:
-      "https://www.google.com/maps?q=Calle+Ciruela+22,+13001+Ciudad+Real&output=embed",
+      "https://www.google.com/maps?q=Calle+Ciruela+28,+13001+Ciudad+Real&output=embed",
     hours: [
       { day: "Lunes", time: "Cerrado" },
       { day: "Mar — Jue", time: "13:00 – 16:00 · 20:00 – 00:00" },
