@@ -124,16 +124,16 @@ export function Hero() {
       {/* CURSOR TRAIL (hero only, desktop) */}
       <CursorTrail targetRef={heroRef} />
 
-      {/* DARK GRADIENT OVERLAY (static base) */}
+      {/* DARK GRADIENT OVERLAY (static base) — pure black, no purple tint */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(10,6,18,0.78)_0%,rgba(10,6,18,0.55)_40%,rgba(10,6,18,0.82)_100%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.15)_40%,rgba(0,0,0,0.6)_100%)]"
       />
 
-      {/* DARKENING ON SCROLL */}
+      {/* DARKENING ON SCROLL — pure black, not ink */}
       <motion.div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[var(--ink)]"
+        className="absolute inset-0 -z-10 bg-black"
         style={{ opacity: overlayOpacity }}
       />
 
