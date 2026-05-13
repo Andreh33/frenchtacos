@@ -130,7 +130,7 @@ export function Cursor() {
         style={{ willChange: "transform" }}
       >
         <div
-          className={`grid place-items-center rounded-full border transition-[width,height,background] duration-200 ease-out ${
+          className={`relative grid place-items-center rounded-full border transition-[width,height,background] duration-200 ease-out ${
             active
               ? "h-14 w-14 border-[var(--yellow)] bg-[var(--yellow)]/15"
               : "h-14 w-14 border-[var(--yellow)]/35"
@@ -140,8 +140,14 @@ export function Cursor() {
             <span className="font-mono text-[10px] font-bold tracking-[0.25em] text-[var(--yellow)] uppercase">
               {label}
             </span>
-          ) : categoryLabel ? (
-            <span className="font-mono text-[9px] font-bold tracking-[0.3em] text-[var(--yellow)]/85 uppercase">
+          ) : null}
+
+          {/* Category chip — always visible when in a category section */}
+          {categoryLabel ? (
+            <span
+              className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[var(--yellow)] px-2 py-0.5 font-mono text-[9px] font-bold tracking-[0.25em] text-[var(--ink)] uppercase"
+              style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.35)" }}
+            >
               {categoryLabel}
             </span>
           ) : null}
