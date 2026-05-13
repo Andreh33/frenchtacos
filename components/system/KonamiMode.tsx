@@ -31,9 +31,11 @@ type Confetti = {
 export function KonamiMode() {
   const [active, setActive] = useState(false);
   const [confetti, setConfetti] = useState<Confetti[]>([]);
+  const [progressTick, setProgressTick] = useState(0);
   const progress = useRef(0);
   const confettiCounter = useRef(0);
   const activeRef = useRef(false);
+  const hideProgressTimer = useRef<number | null>(null);
 
   useEffect(() => {
     activeRef.current = active;
@@ -43,6 +45,19 @@ export function KonamiMode() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const w = window as any;
     w.__clmKonamiProgress = 0;
+
+    const updateUI = () => {
+      setProgressTick(progress.current);
+      // hide after inactivity
+      if (hideProgressTimer.current) window.clearTimeout(hideProgressTimer.current);
+      if (progress.current > 0) {
+        hideProgressTimer.current = window.setTimeout(() => {
+          progress.current = 0;
+          w.__clmKonamiProgress = 0;
+          setProgressTick(0);
+        }, 3500);
+      }
+    };
 
     const onKey = (e: KeyboardEvent) => {
       if (activeRef.current) return;
@@ -58,15 +73,25 @@ export function KonamiMode() {
         if (progress.current === SEQUENCE.length) {
           progress.current = 0;
           w.__clmKonamiProgress = 0;
+          updateUI();
           trigger();
+          return;
         }
+        sound.playClick();
+        updateUI();
       } else if (key === SEQUENCE[0]) {
         progress.current = 1;
         w.__clmKonamiProgress = 1;
-      } else {
+        sound.playClick();
+        updateUI();
+      } else if (key.startsWith("Arrow") || key === "a" || key === "b") {
+        // Only reset on keys that could be part of sequence (avoid resetting
+        // on accidental typing of unrelated keys).
         progress.current = 0;
         w.__clmKonamiProgress = 0;
+        updateUI();
       }
+      // Other keys (letters, numbers, etc) are ignored — don't break progress
     };
     // Bind on BOTH window and document with capture to maximize reliability
     window.addEventListener("keydown", onKey, true);
@@ -108,8 +133,39 @@ export function KonamiMode() {
   };
 
   return (
-    <AnimatePresence>
-      {active && (
+    <>
+      {/* Progress indicator — visible while in the middle of typing the sequence */}
+      <AnimatePresence>
+        {!active && progressTick > 0 && (
+          <motion.div
+            key="konami-progress"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.25 }}
+            className="pointer-events-none fixed right-5 bottom-5 z-[9400] flex flex-col items-end gap-2 sm:right-8 sm:bottom-8"
+          >
+            <div className="flex items-center gap-1.5">
+              {SEQUENCE.map((_, i) => (
+                <span
+                  key={i}
+                  className={`block h-1.5 w-3 transition-colors duration-150 ${
+                    i < progressTick
+                      ? "bg-[var(--yellow)]"
+                      : "bg-[var(--cream)]/15"
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-[var(--yellow)]">
+              {progressTick}/{SEQUENCE.length}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {active && (
         <>
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -152,7 +208,8 @@ export function KonamiMode() {
             html.party-mode .grain::after { opacity: 0.12 !important; }
           `}</style>
         </>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

@@ -13,8 +13,8 @@ export function Cursor() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    if (isTouch) return; // cursor stays as native on touch
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (isTouch || reduce) return;
 
     setMounted(true);
     document.documentElement.classList.add("cursor-active");
@@ -31,13 +31,23 @@ export function Cursor() {
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${mx - 4}px, ${my - 4}px, 0)`;
       }
+      // With reduced-motion: skip the lerp, snap ring to cursor immediately
+      if (reduce) {
+        rx = mx;
+        ry = my;
+        if (ringRef.current) {
+          ringRef.current.style.transform = `translate3d(${rx - 28}px, ${ry - 28}px, 0)`;
+        }
+      }
     };
 
     const tick = () => {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${rx - 28}px, ${ry - 28}px, 0)`;
+      if (!reduce) {
+        rx += (mx - rx) * 0.18;
+        ry += (my - ry) * 0.18;
+        if (ringRef.current) {
+          ringRef.current.style.transform = `translate3d(${rx - 28}px, ${ry - 28}px, 0)`;
+        }
       }
       raf = requestAnimationFrame(tick);
     };
