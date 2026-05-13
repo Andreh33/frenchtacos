@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { site } from "@/lib/site";
+import { Magnetic } from "@/components/system/Magnetic";
 
 export function Local() {
   return (
@@ -108,16 +109,18 @@ export function Local() {
             </div>
 
             <div className="mt-10 flex flex-wrap gap-3">
-              <a
-                href={site.location.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-fill group inline-flex items-center gap-3 border border-[var(--yellow)] bg-[var(--yellow)] px-7 py-4 font-mono text-[11px] tracking-[0.3em] text-[var(--ink)] uppercase"
-                data-cursor="ABRIR"
-              >
-                <span className="relative z-10">Cómo llegar</span>
-                <span className="relative z-10 transition-transform group-hover:translate-x-1">↗</span>
-              </a>
+              <Magnetic strength={0.22} radius={110}>
+                <a
+                  href={site.location.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-fill group inline-flex items-center gap-3 border border-[var(--yellow)] bg-[var(--yellow)] px-7 py-4 font-mono text-[11px] tracking-[0.3em] text-[var(--ink)] uppercase"
+                  data-cursor="ABRIR"
+                >
+                  <span className="relative z-10">Cómo llegar</span>
+                  <span className="relative z-10 transition-transform group-hover:translate-x-1">↗</span>
+                </a>
+              </Magnetic>
               <a
                 href={site.orderUrl}
                 target="_blank"

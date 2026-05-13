@@ -7,12 +7,15 @@ export type Product = {
   image: { src: string; alt: string };
 };
 
+export type CategoryAccent = "copper" | "amber" | "olive" | "cream";
+
 export type Category = {
   slug: string;
   num: string;
   title: string;
   eyebrow: string;
   products: Product[];
+  accent: CategoryAccent;
 };
 
 export const tacos: Product[] = [
@@ -154,8 +157,8 @@ export const ensaladas: Product[] = [
 ];
 
 export const categories: Category[] = [
-  { slug: "tacos", num: "Nº01", title: "Tacos", eyebrow: "La receta original", products: tacos },
-  { slug: "burgers", num: "Nº02", title: "Burgers", eyebrow: "Pan brioche y fuego", products: burgers },
-  { slug: "bowls", num: "Nº03", title: "Bowls", eyebrow: "Todo en uno", products: bowls },
-  { slug: "ensaladas", num: "Nº04", title: "Ensaladas", eyebrow: "Fresco pero con carácter", products: ensaladas },
+  { slug: "tacos", num: "Nº01", title: "Tacos", eyebrow: "La receta original", products: tacos, accent: "copper" },
+  { slug: "burgers", num: "Nº02", title: "Burgers", eyebrow: "Pan brioche y fuego", products: burgers, accent: "amber" },
+  { slug: "bowls", num: "Nº03", title: "Bowls", eyebrow: "Todo en uno", products: bowls, accent: "olive" },
+  { slug: "ensaladas", num: "Nº04", title: "Ensaladas", eyebrow: "Fresco pero con carácter", products: ensaladas, accent: "cream" },
 ];

@@ -17,6 +17,7 @@ export function Menu() {
               title={cat.title}
               eyebrow={cat.eyebrow}
               products={cat.products}
+              accent={cat.accent}
             />
             {next ? (
               <CategorySeparator

@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
+import { Magnetic } from "@/components/system/Magnetic";
+import { CursorTrail } from "@/components/system/CursorTrail";
 
 type Line = { text: string; className: string; underlineCalle?: boolean };
 const lines: Line[] = [
@@ -34,13 +36,29 @@ function CurrentTime() {
 }
 
 export function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Scroll-linked darkening: as user scrolls, overlay darkens + content fades
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [0, 0.55, 0.95]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+
   return (
     <section
+      ref={heroRef}
       className="relative isolate flex w-full flex-col overflow-hidden"
       style={{ minHeight: "100svh", height: "100svh" }}
     >
-      {/* VIDEO LAYER */}
-      <div className="absolute inset-0 -z-20">
+      {/* VIDEO LAYER (with scale on scroll) */}
+      <motion.div
+        className="absolute inset-0 -z-20"
+        style={{ scale: videoScale }}
+      >
         <video
           className="h-full w-full object-cover"
           autoPlay
@@ -54,12 +72,22 @@ export function Hero() {
           <source src="/video/hero.webm" type="video/webm" />
           <source src="/video/hero.mp4" type="video/mp4" />
         </video>
-      </div>
+      </motion.div>
 
-      {/* DARK GRADIENT OVERLAY */}
+      {/* CURSOR TRAIL (hero only, desktop) */}
+      <CursorTrail targetRef={heroRef} />
+
+      {/* DARK GRADIENT OVERLAY (static base) */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(10,6,18,0.78)_0%,rgba(10,6,18,0.55)_40%,rgba(10,6,18,0.82)_100%)]"
+      />
+
+      {/* DARKENING ON SCROLL */}
+      <motion.div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-[var(--ink)]"
+        style={{ opacity: overlayOpacity }}
       />
 
       {/* PURPLE TINT */}
@@ -100,8 +128,11 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* HEADLINE BLOCK */}
-      <div className="relative z-10 flex flex-1 flex-col justify-end px-5 pb-32 sm:px-8 sm:pb-40 lg:px-12 lg:pb-44">
+      {/* HEADLINE BLOCK — fades + slides up on scroll */}
+      <motion.div
+        className="relative z-10 flex flex-1 flex-col justify-end px-5 pb-32 sm:px-8 sm:pb-40 lg:px-12 lg:pb-44"
+        style={{ opacity: contentOpacity, y: contentY }}
+      >
         <div className="max-w-[1400px]">
           <h1
             className="font-display font-bold tracking-[-0.04em] text-[var(--cream)]"
@@ -176,24 +207,26 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 1.3 }}
             className="mt-9 flex flex-wrap items-center gap-3"
           >
-            <a
-              href={site.orderUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-fill group inline-flex items-center gap-3 border border-[var(--yellow)] bg-[var(--yellow)] px-7 py-4 font-mono text-[11px] tracking-[0.3em] text-[var(--ink)] uppercase"
-              data-cursor="PEDIR"
-            >
-              <span className="relative z-10">Pide ya</span>
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                className="relative z-10 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
+            <Magnetic strength={0.25} radius={120}>
+              <a
+                href={site.orderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-fill group inline-flex items-center gap-3 border border-[var(--yellow)] bg-[var(--yellow)] px-7 py-4 font-mono text-[11px] tracking-[0.3em] text-[var(--ink)] uppercase"
+                data-cursor="PEDIR"
               >
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </a>
+                <span className="relative z-10">Pide ya</span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  className="relative z-10 h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
+                >
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </a>
+            </Magnetic>
             <a
               href="#carta"
               className="inline-flex items-center gap-3 border border-[var(--cream)]/40 px-7 py-4 font-mono text-[11px] tracking-[0.3em] text-[var(--cream)] uppercase transition-colors hover:border-[var(--cream)] hover:bg-[var(--cream)]/5"
@@ -203,7 +236,7 @@ export function Hero() {
             </a>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* BOTTOM MARQUEE */}
       <div className="absolute inset-x-0 bottom-0 z-10 overflow-hidden border-y border-[var(--yellow)] bg-[var(--ink)]">

@@ -8,17 +8,30 @@ import {
   useTransform,
   useMotionValueEvent,
 } from "framer-motion";
-import type { Product } from "@/lib/menu";
+import type { Product, CategoryAccent } from "@/lib/menu";
 import { site } from "@/lib/site";
+import { sound } from "@/lib/sound";
 
 type Props = {
   num: string;
   title: string;
   eyebrow: string;
   products: Product[];
+  accent: CategoryAccent;
 };
 
-export function HorizontalCategory({ num, title, eyebrow, products }: Props) {
+const ACCENT_WASH: Record<CategoryAccent, string> = {
+  copper:
+    "radial-gradient(ellipse at 75% 25%, rgba(196, 87, 38, 0.18), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(107, 47, 179, 0.12), transparent 60%)",
+  amber:
+    "radial-gradient(ellipse at 75% 25%, rgba(255, 165, 38, 0.14), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(180, 80, 30, 0.16), transparent 60%)",
+  olive:
+    "radial-gradient(ellipse at 75% 25%, rgba(120, 158, 75, 0.16), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(54, 90, 45, 0.18), transparent 60%)",
+  cream:
+    "radial-gradient(ellipse at 75% 25%, rgba(255, 220, 145, 0.10), transparent 55%), radial-gradient(ellipse at 15% 80%, rgba(168, 85, 247, 0.10), transparent 60%)",
+};
+
+export function HorizontalCategory({ num, title, eyebrow, products, accent }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -36,7 +49,10 @@ export function HorizontalCategory({ num, title, eyebrow, products }: Props) {
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setProgress(v);
     const idx = Math.min(PANELS - 1, Math.max(0, Math.floor(v * PANELS * 0.9999)));
-    setActive(idx);
+    setActive((prev) => {
+      if (idx !== prev) sound.playSwoosh();
+      return idx;
+    });
   });
 
   // section height = N * 100vh on desktop. Map explicitly so Tailwind scans
@@ -59,6 +75,13 @@ export function HorizontalCategory({ num, title, eyebrow, products }: Props) {
       className={`relative bg-[var(--ink)] h-auto ${heightStyle}`}
       aria-label={`${title} — carta`}
     >
+      {/* color wash de la categoría */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-0"
+        style={{ background: ACCENT_WASH[accent] }}
+      />
+
       {/* DESKTOP: sticky horizontal stage */}
       <div className="hidden h-full md:block">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
@@ -204,10 +227,15 @@ function ProductPanel({
   return (
     <div className="relative flex h-full w-screen flex-shrink-0 flex-col justify-center px-[6vw]">
       <div className="grid h-full max-h-[78vh] w-full grid-cols-12 items-center gap-[3vw] self-center">
-        <div
-          className={`relative col-span-7 h-full overflow-hidden ${
+        <a
+          href={site.orderUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${product.name} — pedir en Glovo`}
+          className={`group relative col-span-7 h-full overflow-hidden ${
             imageLeft ? "order-1" : "order-2"
           }`}
+          data-cursor="PEDIR"
         >
           <Image
             src={product.image.src}
@@ -215,9 +243,35 @@ function ProductPanel({
             fill
             priority={index === 0}
             sizes="(min-width: 768px) 60vw, 100vw"
-            className="object-cover"
+            className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.04]"
             style={{ filter: "saturate(1.08) contrast(1.06) brightness(0.94)" }}
           />
+          {/* hover dark overlay */}
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-[var(--ink)]/0 transition-colors duration-500 group-hover:bg-[var(--ink)]/45"
+          />
+          {/* hover circle CTA */}
+          <div
+            aria-hidden
+            className="absolute inset-0 grid place-items-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          >
+            <div className="flex h-24 w-24 flex-col items-center justify-center rounded-full border border-[var(--yellow)] bg-[var(--yellow)]/10 backdrop-blur-sm transition-transform duration-500 group-hover:scale-105">
+              <span className="font-mono text-[9px] tracking-[0.3em] text-[var(--yellow)] uppercase">
+                Pedir
+              </span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="mt-1 h-5 w-5 text-[var(--yellow)]"
+              >
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+          {/* num stamp */}
           <span
             className={`pointer-events-none absolute top-5 z-10 font-display font-bold text-[var(--cream)] mix-blend-difference ${
               imageLeft ? "right-5" : "left-5"
@@ -227,7 +281,7 @@ function ProductPanel({
           >
             {product.num}
           </span>
-        </div>
+        </a>
 
         <div
           className={`col-span-5 flex flex-col gap-6 ${imageLeft ? "order-2" : "order-1"}`}

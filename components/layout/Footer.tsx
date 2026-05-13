@@ -1,8 +1,19 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { site } from "@/lib/site";
 import { LegalModalTrigger } from "./LegalModal";
+import { MuteToggle } from "@/components/system/MuteToggle";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const wordmarkRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: wordmarkProgress } = useScroll({
+    target: wordmarkRef,
+    offset: ["start end", "end start"],
+  });
+  const wordmarkY = useTransform(wordmarkProgress, [0, 1], [60, -60]);
 
   return (
     <footer className="relative overflow-hidden border-t border-[var(--cream)]/10 bg-[var(--ink)] pt-24 pb-8">
@@ -53,17 +64,18 @@ export function Footer() {
           </FooterCol>
         </div>
 
-        {/* OVERSIZED WORDMARK */}
+        {/* OVERSIZED WORDMARK con parallax */}
         <div
+          ref={wordmarkRef}
           aria-hidden
           className="relative mt-24 -mb-[6vw] overflow-hidden md:-mb-[5vw]"
         >
-          <div
+          <motion.div
             className="font-display font-bold leading-[0.78] tracking-[-0.05em] text-[var(--cream)]/[0.06] select-none whitespace-nowrap"
-            style={{ fontSize: "clamp(5rem, 23vw, 26rem)" }}
+            style={{ fontSize: "clamp(5rem, 23vw, 26rem)", y: wordmarkY }}
           >
             CLM·FRENCH·TACOS
-          </div>
+          </motion.div>
         </div>
 
         <div className="relative mt-10 border-t border-[var(--cream)]/10 pt-8">
@@ -72,6 +84,8 @@ export function Footer() {
               CLM French Tacos — © {year} · Ciudad Real
             </div>
             <div className="flex flex-wrap items-center gap-5">
+              <MuteToggle />
+              <span className="hidden h-3 w-px bg-[var(--cream)]/15 sm:block" />
               <LegalModalTrigger doc="aviso" className="footer-link-mono">
                 Aviso legal
               </LegalModalTrigger>

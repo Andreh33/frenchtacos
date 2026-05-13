@@ -5,13 +5,14 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
+import { Magnetic } from "@/components/system/Magnetic";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 100);
+    const onScroll = () => setScrolled(window.scrollY > 80);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -26,54 +27,100 @@ export function Header() {
 
   return (
     <>
+      {/* DYNAMIC ISLAND — pill flotante centrada */}
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-[80] transition-[background,backdrop-filter,border-color] duration-300",
-          scrolled
-            ? "border-b border-[var(--cream)]/8 bg-[var(--ink)]/85 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent"
+          "fixed inset-x-0 top-3 z-[80] flex justify-center px-3 transition-[top] duration-300 sm:top-5"
         )}
       >
-        <div className="mx-auto flex h-14 max-w-[1800px] items-center justify-between px-5 sm:h-16 sm:px-8 lg:px-12">
-          <Link
-            href="/"
-            aria-label="CLM French Tacos — inicio"
-            className="group flex items-center gap-2.5 font-display text-[15px] font-semibold tracking-[-0.02em] text-[var(--cream)]"
+        <motion.div
+          initial={{ y: -50, opacity: 0, scale: 0.94 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.65, 0, 0.35, 1] }}
+          className={cn(
+            "pointer-events-auto flex items-center gap-1 rounded-full border bg-[var(--ink)]/85 backdrop-blur-xl transition-all duration-500",
+            scrolled
+              ? "border-[var(--cream)]/12 shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+              : "border-[var(--cream)]/10 shadow-[0_6px_24px_rgba(0,0,0,0.25)]"
+          )}
+        >
+          {/* LOGO (left entry from left) */}
+          <motion.div
+            initial={{ x: -40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.55, delay: 0.45, ease: [0.65, 0, 0.35, 1] }}
           >
-            <span className="block h-1.5 w-1.5 rounded-full bg-[var(--yellow)] transition-transform duration-300 group-hover:scale-150" />
-            CLM·FRENCH·TACOS
-          </Link>
+            <Link
+              href="/"
+              aria-label="CLM French Tacos — inicio"
+              className="group flex items-center gap-2 py-2.5 pr-2 pl-4 font-display text-[13px] font-semibold tracking-[-0.02em] text-[var(--cream)] sm:py-2.5 sm:pl-5 sm:text-[14px]"
+              data-cursor="HOME"
+            >
+              <span className="block h-1.5 w-1.5 rounded-full bg-[var(--yellow)] transition-transform duration-300 group-hover:scale-150" />
+              <span className="hidden sm:inline">CLM·FRENCH·TACOS</span>
+              <span className="sm:hidden">CLM</span>
+            </Link>
+          </motion.div>
 
-          <nav className="hidden items-center gap-9 lg:flex">
-            {site.nav.map((l) => {
+          {/* NAV LINKS — center, entry from sides */}
+          <nav className="hidden items-center gap-1 px-1 lg:flex">
+            {site.nav.map((l, i) => {
               const isExternal = "external" in l && l.external;
+              // first half enters from left, second half from right
+              const fromLeft = i < site.nav.length / 2;
               return (
-                <a
+                <motion.a
                   key={l.href}
+                  initial={{ x: fromLeft ? -40 : 40, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{
+                    duration: 0.55,
+                    delay: 0.55 + i * 0.08,
+                    ease: [0.65, 0, 0.35, 1],
+                  }}
                   href={l.href}
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noopener noreferrer" : undefined}
-                  className="group relative font-mono text-[11px] tracking-[0.25em] uppercase text-[var(--cream)]/80 transition-colors hover:text-[var(--yellow)]"
+                  className="group relative px-3.5 py-2 font-mono text-[10.5px] tracking-[0.25em] uppercase text-[var(--cream)]/85 transition-colors hover:text-[var(--yellow)]"
                   data-cursor="VER"
                 >
                   {l.label}
-                  <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-[var(--yellow)] transition-transform duration-300 group-hover:scale-x-100" />
-                </a>
+                  {/* SVG path underline animado */}
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 60 6"
+                    preserveAspectRatio="none"
+                    className="pointer-events-none absolute right-3.5 bottom-1 left-3.5 h-1 w-[calc(100%-1.75rem)]"
+                  >
+                    <path
+                      d="M1 3 C 15 1, 45 5, 59 3"
+                      stroke="var(--yellow)"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      fill="none"
+                      pathLength={1}
+                      style={{
+                        strokeDasharray: 1,
+                        strokeDashoffset: 1,
+                        transition:
+                          "stroke-dashoffset 0.45s cubic-bezier(0.65,0,0.35,1)",
+                      }}
+                      className="group-hover:[stroke-dashoffset:0]"
+                    />
+                  </svg>
+                </motion.a>
               );
             })}
           </nav>
 
-          <div className="flex items-center gap-3">
-            <a
-              href={site.orderUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-fill hidden items-center gap-2 border border-[var(--yellow)] bg-[var(--yellow)] px-5 py-2.5 font-mono text-[11px] tracking-[0.25em] text-[var(--ink)] uppercase sm:inline-flex"
-              data-cursor="PEDIR"
-            >
-              <span className="relative z-10">Pide ya</span>
-              <span className="relative z-10">→</span>
-            </a>
+          {/* CTA (right entry from right) */}
+          <motion.div
+            initial={{ x: 40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.55, delay: 0.45, ease: [0.65, 0, 0.35, 1] }}
+            className="flex items-center"
+          >
+            <MagneticCTA />
             <button
               type="button"
               aria-label={open ? "Cerrar menú" : "Abrir menú"}
@@ -83,21 +130,22 @@ export function Header() {
             >
               <span
                 className={cn(
-                  "absolute h-px w-5 bg-current transition-all duration-300",
-                  open ? "rotate-45" : "-translate-y-1.5"
+                  "absolute h-px w-4 bg-current transition-all duration-300",
+                  open ? "rotate-45" : "-translate-y-1"
                 )}
               />
               <span
                 className={cn(
-                  "absolute h-px w-5 bg-current transition-all duration-300",
-                  open ? "-rotate-45" : "translate-y-1.5"
+                  "absolute h-px w-4 bg-current transition-all duration-300",
+                  open ? "-rotate-45" : "translate-y-1"
                 )}
               />
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </header>
 
+      {/* MOBILE DRAWER */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -108,7 +156,7 @@ export function Header() {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[70] flex flex-col bg-[var(--ink)] lg:hidden"
           >
-            <div className="h-14 sm:h-16" aria-hidden />
+            <div className="h-20" aria-hidden />
             <nav className="flex flex-1 flex-col justify-center gap-1 px-6 pb-16">
               {site.nav.map((l, i) => {
                 const isExternal = "external" in l && l.external;
@@ -157,5 +205,22 @@ export function Header() {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+function MagneticCTA() {
+  return (
+    <Magnetic strength={0.3} radius={60}>
+      <a
+        href={site.orderUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-fill hidden items-center gap-1.5 rounded-full border border-[var(--yellow)] bg-[var(--yellow)] px-4 py-2 font-mono text-[10.5px] tracking-[0.25em] text-[var(--ink)] uppercase sm:inline-flex sm:px-5 sm:py-2.5"
+        data-cursor="PEDIR"
+      >
+        <span className="relative z-10">Pide ya</span>
+        <span className="relative z-10">→</span>
+      </a>
+    </Magnetic>
   );
 }

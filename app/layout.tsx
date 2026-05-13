@@ -4,6 +4,8 @@ import "./globals.css";
 import { Loader } from "@/components/system/Loader";
 import { SmoothScroll } from "@/components/system/SmoothScroll";
 import { Cursor } from "@/components/system/Cursor";
+import { ScrollIndicator } from "@/components/system/ScrollIndicator";
+import { SoundProvider } from "@/components/system/SoundProvider";
 import { RestaurantJsonLd } from "@/components/system/RestaurantJsonLd";
 
 const siteUrl = "https://frenchtacos.es";
@@ -62,13 +64,16 @@ export default function RootLayout({
         >
           Saltar al contenido
         </a>
-        <Loader />
-        <SmoothScroll />
-        <Cursor />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <RestaurantJsonLd />
+        <SoundProvider>
+          <Loader />
+          <SmoothScroll />
+          <Cursor />
+          <ScrollIndicator />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <RestaurantJsonLd />
+        </SoundProvider>
       </body>
     </html>
   );
