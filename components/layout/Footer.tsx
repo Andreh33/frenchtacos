@@ -71,6 +71,7 @@ export function Footer() {
           className="relative mt-24 -mb-[6vw] overflow-hidden md:-mb-[5vw]"
         >
           <motion.div
+            data-decorative-text
             className="font-display font-bold leading-[0.78] tracking-[-0.05em] text-[var(--cream)]/[0.06] select-none whitespace-nowrap"
             style={{ fontSize: "clamp(5rem, 23vw, 26rem)", y: wordmarkY }}
           >

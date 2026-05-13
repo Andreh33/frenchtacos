@@ -268,6 +268,14 @@ html.theme-light [data-wash="dark-radial"] {
   color: #0A0612 !important;
 }
 
+/* Decorative oversized labels (vertical category names, footer wordmark) —
+   in dark theme: cream at low alpha = subtle texture on ink.
+   In light theme: dark at low alpha needs MORE opacity + a warm orange tint
+   to stay visible on cream background. */
+html.theme-light [data-decorative-text] {
+  color: rgba(26, 15, 8, 0.10) !important;
+}
+
 .story-reveal {
   opacity: 0;
   transform: translateY(28px);

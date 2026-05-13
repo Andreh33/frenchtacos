@@ -116,6 +116,7 @@ export function HorizontalCategory({ num, title, eyebrow, products, accent }: Pr
 
           {/* huge category label vertical right */}
           <div
+            data-decorative-text
             className="pointer-events-none absolute top-1/2 right-4 z-20 -translate-y-1/2 origin-center -rotate-90 font-display font-bold text-[var(--cream)]/[0.04] uppercase tracking-[-0.04em] whitespace-nowrap select-none"
             style={{ fontSize: "clamp(5rem, 12vw, 14rem)", lineHeight: 0.8 }}
             aria-hidden
