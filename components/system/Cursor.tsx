@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CursorCategoryIcon } from "./CursorCategoryIcon";
 
 export function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null);
@@ -161,6 +162,8 @@ export function Cursor() {
           className={`relative grid place-items-center rounded-full border transition-[width,height,background] duration-200 ease-out ${
             active
               ? "h-14 w-14 border-[var(--yellow)] bg-[var(--yellow)]/15"
+              : categoryLabel
+              ? "h-14 w-14 border-[var(--yellow)] bg-[var(--yellow)]/20"
               : "h-14 w-14 border-[var(--yellow)]/35"
           }`}
         >
@@ -168,9 +171,14 @@ export function Cursor() {
             <span className="font-mono text-[10px] font-bold tracking-[0.25em] text-[var(--yellow)] uppercase">
               {label}
             </span>
+          ) : categoryLabel ? (
+            <CursorCategoryIcon
+              category={categoryLabel}
+              className="h-7 w-7 text-[var(--yellow)]"
+            />
           ) : null}
 
-          {/* Category chip — always visible when in a category section */}
+          {/* Category chip below — always visible when in a category section */}
           {categoryLabel ? (
             <span
               className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[var(--yellow)] px-2 py-0.5 font-mono text-[9px] font-bold tracking-[0.25em] text-[var(--ink)] uppercase"

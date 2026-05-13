@@ -93,8 +93,7 @@ export function KonamiMode() {
       }
       // Other keys (letters, numbers, etc) are ignored — don't break progress
     };
-    // Bind on BOTH window and document with capture to maximize reliability
-    window.addEventListener("keydown", onKey, true);
+    // Single capture-phase listener on document (covers window too via capture)
     document.addEventListener("keydown", onKey, true);
 
     w.__clm = w.__clm || {};
@@ -102,7 +101,6 @@ export function KonamiMode() {
     w.__clm.konami = "ready · ↑↑↓↓←→←→BA";
 
     return () => {
-      window.removeEventListener("keydown", onKey, true);
       document.removeEventListener("keydown", onKey, true);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
